@@ -35,8 +35,10 @@
 #include "cstrike/entity/CBaseWeapon.h"
 #include "cstrike/entity/CEnvEntityMaker.h"
 #include "cstrike/entity/CHudHint.h"
+#include "cstrike/entity/CLogicCase.h"
 #include "cstrike/entity/CPhysBox.h"
 #include "cstrike/entity/CPhysForce.h"
+#include "cstrike/entity/CPointHurt.h"
 #include "cstrike/entity/CTriggerPush.h"
 #include "cstrike/entity/PlayerController.h"
 #include "cstrike/entity/PlayerPawn.h"
@@ -214,12 +216,11 @@ BeginMemberHookScope(CTriggerPush)
         if (!pEntity->PassesTriggerFilters(pOther))
             return;
 
-        Vector vecAbsDir;
-        vecAbsDir.Init();
+        Vector vecAbsDir(0,0,0);
 
         auto mat = pEntity->m_CBodyComponent()->m_pSceneNode()->EntityToWorldTransform();
 
-        const auto pushDir = pEntity->m_vecPushDirEntitySpace();
+        const auto& pushDir = pEntity->m_vecPushDirEntitySpace();
 
         // I had issues with VectorRotate on linux, so I did it here
         vecAbsDir.x = pushDir.x * mat[0][0] + pushDir.y * mat[0][1] + pushDir.z * mat[0][2];
@@ -237,7 +238,8 @@ BeginMemberHookScope(CTriggerPush)
         if (vecPush.z > 0 && (flags & FL_ONGROUND))
         {
             pOther->SetGroundEntity(nullptr, nullptr);
-            auto origin = pOther->GetAbsOrigin();
+
+            Vector origin = pOther->GetAbsOrigin();
             origin.z += 1.0f;
 
 #ifdef USE_ABS
@@ -578,17 +580,18 @@ using AddOutputHandler_t = void (*)(const CEntityIdentity* pInstance, const char
 
 struct AddOutputKey_t
 {
-    AddOutputKey_t(const char* pName, size_t parts)
-    {
-        m_sName  = std::string(pName);
-        m_nParts = parts;
-    }
+    AddOutputKey_t()                            = delete;
+    AddOutputKey_t(const AddOutputKey_t& other) = default;
 
-    AddOutputKey_t(const AddOutputKey_t& other) :
-        m_sName(other.m_sName), m_nParts(other.m_nParts) {}
+    AddOutputKey_t(const char* pName, size_t parts) :
+        AddOutputKey_t(pName, parts, false) {}
+
+    AddOutputKey_t(const char* pName, size_t parts, bool prefix) :
+        m_sName(pName), m_nParts(parts), m_bPrefix(prefix) {}
 
     std::string m_sName;
     size_t      m_nParts;
+    bool        m_bPrefix;
 };
 
 inline static bool GetVariantInt(const Variant_t* pValue, int& value)
@@ -639,6 +642,8 @@ inline static bool GetVariantFloat(const Variant_t* pValue, float& value)
 
 struct AddOutputInfo_t
 {
+    AddOutputInfo_t() = delete;
+
     AddOutputInfo_t(const AddOutputKey_t& key, const AddOutputHandler_t& handler) :
         m_Key(key), m_Handler(handler) {}
 
@@ -748,14 +753,14 @@ static void AddOutputCustom_EntityTemplate(const CEntityIdentity* pInstance, con
 
 static void AddOutputCustom_BaseVelocity(const CEntityIdentity* pInstance, const char* pInput, CBaseEntity* pActivator, CBaseEntity* pCaller, const std::vector<std::string>& vecArgs)
 {
-    const Vector velocity(std::clamp(static_cast<float>(atof(vecArgs[1].c_str())), -3500.f, 3500.f), std::clamp(static_cast<float>(atof(vecArgs[2].c_str())), -3500.f, 3500.f), std::clamp(static_cast<float>(atof(vecArgs[3].c_str())), -3500.f, 3500.f));
+    const Vector velocity(std::clamp(static_cast<float>(atof(vecArgs[1].c_str())), -4096.f, 4096.f), std::clamp(static_cast<float>(atof(vecArgs[2].c_str())), -4096.f, 4096.f), std::clamp(static_cast<float>(atof(vecArgs[3].c_str())), -4096.f, 4096.f));
     const auto   pEntity = pInstance->GetBaseEntity();
     pEntity->m_vecBaseVelocity(velocity);
 }
 
 static void AddOutputCustom_AbsVelocity(const CEntityIdentity* pInstance, const char* pInput, CBaseEntity* pActivator, CBaseEntity* pCaller, const std::vector<std::string>& vecArgs)
 {
-    Vector velocity(std::clamp(static_cast<float>(atof(vecArgs[1].c_str())), -3500.f, 3500.f), std::clamp(static_cast<float>(atof(vecArgs[2].c_str())), -3500.f, 3500.f), std::clamp(static_cast<float>(atof(vecArgs[3].c_str())), -3500.f, 3500.f));
+    Vector velocity(std::clamp(static_cast<float>(atof(vecArgs[1].c_str())), -4096.f, 4096.f), std::clamp(static_cast<float>(atof(vecArgs[2].c_str())), -4096.f, 4096.f), std::clamp(static_cast<float>(atof(vecArgs[3].c_str())), -4096.f, 4096.f));
     pInstance->GetBaseEntity()->SetAbsVelocity(&velocity);
 }
 
@@ -907,7 +912,104 @@ static void AddOutputCustom_CanBePickedUp(const CEntityIdentity* pInstance, cons
     }
 }
 
-const std::vector<AddOutputInfo_t> s_AddOutputHandlers = {
+static void AddOutputCustom_Damage(const CEntityIdentity* pInstance, const char* pInput, CBaseEntity* pActivator, CBaseEntity* pCaller, const std::vector<std::string>& vecArgs)
+{
+    const auto pEntity = reinterpret_cast<CPointHurt*>(pInstance->GetBaseEntity());
+
+    if (strcasecmp(pEntity->GetClassname(), "point_hurt") == 0)
+    {
+        // damage max to 99999999 or damage will be broken, idk how the valve work.
+        const auto value = std::clamp(atoi(vecArgs[1].c_str()), 0, 99999999);
+        pEntity->m_nDamage(value);
+
+        if (ms_entity_io_verbose_logging->GetValue<bool>())
+        {
+            LOG("Set damage to %d for %s", value, pEntity->GetName());
+        }
+    }
+    else
+    {
+        InputErrorCustomNoParam("Only point_hurt is supported");
+    }
+}
+
+static void AddOutputCustom_DamageType(const CEntityIdentity* pInstance, const char* pInput, CBaseEntity* pActivator, CBaseEntity* pCaller, const std::vector<std::string>& vecArgs)
+{
+    const auto pEntity = reinterpret_cast<CPointHurt*>(pInstance->GetBaseEntity());
+
+    if (strcasecmp(pEntity->GetClassname(), "point_hurt") == 0)
+    {
+        const auto value = std::clamp(atoi(vecArgs[1].c_str()), 0, INT_MAX);
+        pEntity->m_bitsDamageType(value);
+
+        if (ms_entity_io_verbose_logging->GetValue<bool>())
+        {
+            LOG("Set damagetype to %d for %s", value, pEntity->GetName());
+        }
+    }
+    else
+    {
+        InputErrorCustomNoParam("Only point_hurt is supported");
+    }
+}
+
+static void AddOutputCustom_DamageRadius(const CEntityIdentity* pInstance, const char* pInput, CBaseEntity* pActivator, CBaseEntity* pCaller, const std::vector<std::string>& vecArgs)
+{
+    const auto pEntity = reinterpret_cast<CPointHurt*>(pInstance->GetBaseEntity());
+
+    if (strcasecmp(pEntity->GetClassname(), "point_hurt") == 0)
+    {
+        const auto value = static_cast<float>(atof(vecArgs[1].c_str()));
+        pEntity->m_flRadius(value);
+
+        if (ms_entity_io_verbose_logging->GetValue<bool>())
+        {
+            LOG("Set damageradius to %f for %s", value, pEntity->GetName());
+        }
+    }
+    else
+    {
+        InputErrorCustomNoParam("Only point_hurt is supported");
+    }
+}
+
+static void AddOutputCustom_Case(const CEntityIdentity* pInstance, const char* pInput, CBaseEntity* pActivator, CBaseEntity* pCaller, const std::vector<std::string>& vecArgs)
+{
+    const auto pEntity = reinterpret_cast<CLogicCase*>(pInstance->GetBaseEntity());
+
+    if (strcasecmp(pEntity->GetClassname(), "logic_case") == 0)
+    {
+        if (vecArgs[0].length() != 6)
+        {
+            WARN("%d.%s Error Input '%s': size must be 6", pInstance->GetEntityIndex(), pInstance->GetName(), vecArgs[0].c_str());
+            return;
+        }
+
+        const auto caseIndex = atoi(vecArgs[0].substr(4).c_str());
+
+        if (caseIndex < 1 || caseIndex > 32)
+        {
+            WARN("%d.%s Error Input '%s': case number must be between 01-32", pInstance->GetEntityIndex(), pInstance->GetName(), vecArgs[0].c_str());
+            return;
+        }
+
+        const auto& pValue = g_pGameEntitySystem->AllocPooledString(vecArgs[1].c_str());
+
+        pEntity->m_nCase()[caseIndex - 1] = pValue;
+
+        if (ms_entity_io_verbose_logging->GetValue<bool>())
+        {
+            LOG("Set %s to %s for %s", vecArgs[0].c_str(), pValue.Get(), pInstance->GetName());
+        }
+    }
+    else
+    {
+        InputErrorCustomNoParam("Only logic_case is supported");
+    }
+}
+
+static const std::vector<AddOutputInfo_t> s_AddOutputHandlers = {
+
     {{"targetname", 2},     AddOutputCustom_Targetname    },
     {{"origin", 4},         AddOutputCustom_Origin        },
     {{"angles", 4},         AddOutputCustom_Angles        },
@@ -928,32 +1030,40 @@ const std::vector<AddOutputInfo_t> s_AddOutputHandlers = {
     {{"speed", 2},          AddOutputCustom_Speed         },
     {{"runspeed", 2},       AddOutputCustom_RunSpeed      },
     {{"canbepickedup", 2},  AddOutputCustom_CanBePickedUp },
+    {{"damage", 2},         AddOutputCustom_Damage        },
+    {{"damagetype", 2},     AddOutputCustom_DamageType    },
+    {{"damageradius", 2},   AddOutputCustom_DamageRadius  },
+
+    // Prefix
+    {{"Case", 2, true},     AddOutputCustom_Case          },
 };
 
 static bool CustomInput_CustomAddOutput(const CEntityIdentity* pInstance, const char* pInput, CBaseEntity* pActivator, CBaseEntity* pCaller, Variant_t* pValue)
 {
     if (const auto param = pValue->AutoCastString())
     {
-        for (const auto& [input, handler] : s_AddOutputHandlers)
+        if (const auto split = StringSplit(param, " "); split.size() >= 2)
         {
-            if (strncasecmp(param, input.m_sName.c_str(), input.m_sName.size()) == 0 && param[input.m_sName.size()] == ' ')
+            for (const auto& [input, handler] : s_AddOutputHandlers)
             {
-                const auto split = StringSplit(param, " ");
-
-                if (split.size() == input.m_nParts)
+                if ((input.m_bPrefix && strncasecmp(split[0].c_str(), input.m_sName.c_str(), input.m_sName.size()) == 0)
+                    || (!input.m_bPrefix && strcasecmp(split[0].c_str(), input.m_sName.c_str()) == 0))
                 {
-                    handler(pInstance, pInput, pActivator, pCaller, split);
-                }
-                else
-                {
-                    InputErrorParam();
-                }
+                    if (split.size() == input.m_nParts)
+                    {
+                        handler(pInstance, pInput, pActivator, pCaller, split);
+                    }
+                    else
+                    {
+                        InputErrorParam();
+                    }
 
-                return true;
+                    return true;
+                }
             }
-        }
 
-        WARN("Unknown param '%s' for entity %d.%s.%s", param, pInstance->GetEntityIndex(), pInstance->GetClassname(), pInstance->GetName());
+            WARN("Unknown param '%s' for entity %d.%s.%s", param, pInstance->GetEntityIndex(), pInstance->GetClassname(), pInstance->GetName());
+        }
     }
 
     // always handled;
@@ -1213,7 +1323,7 @@ static bool CustomInput_SetMessage(const CEntityIdentity* pInstance, const char*
     return false;
 }
 
-const std::vector<CustomInputInfo_t> s_InputEnhancementInputs = {
+static const std::vector<CustomInputInfo_t> s_InputEnhancementInputs = {
     {"CustomAddOutput", CustomInput_CustomAddOutput},
     {"AddCustomOutput", CustomInput_CustomAddOutput},
     {"KeyValues",       CustomInput_CustomAddOutput},
