@@ -417,7 +417,7 @@ jobs:
           pushd build/linux-extensions && zip -r ../../ModSharp-git${{env.GITCOMMIT}}-linux-extensions.zip * && popd
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITCOMMIT: ${{ needs.prefetch.outputs.git_commit }}
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
