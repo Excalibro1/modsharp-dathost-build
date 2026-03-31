@@ -58,6 +58,8 @@ public sealed class AdminFlatFile : IModSharpModule, IClientListener
 
     public void PostInit()
     {
+        _logger.LogWarning("This module has been deprecated. Will be removed at 2.2");
+
         _clientManager.InstallClientListener(this);
 
         ReadAdminFile();

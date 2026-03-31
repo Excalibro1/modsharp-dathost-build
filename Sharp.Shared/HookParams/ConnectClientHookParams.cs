@@ -25,4 +25,5 @@ public interface IConnectClientHookParams : IFunctionParams
 {
     SteamID SteamId { get; }
     string  Name    { get; }
+    string  Ip      { get; }
 }

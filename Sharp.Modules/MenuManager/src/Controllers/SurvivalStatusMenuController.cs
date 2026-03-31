@@ -18,16 +18,18 @@ internal class SurvivalStatusMenuController : BaseMenuController
         IModSharp                                   modSharp,
         IEventManager                               eventManager,
         IEntityManager                              entityManager,
+        ulong                                       sessionId,
         Func<IGameClient, Menu>                     menuFactory,
         IGameClient                                 player,
-        ILocalizerManager?                          localizerManager) : base(menuManager,
+        ILocalizerManager?                          localization) : base(menuManager,
                                                                              modSharp,
                                                                              eventManager,
                                                                              entityManager,
+                                                                             sessionId,
                                                                              menuFactory,
                                                                              player)
     {
-        _localizerManager = localizerManager;
+        _localizerManager = localization;
         _timer            = modSharp.PushTimer(Think, 0.01, GameTimerFlags.Repeatable);
     }
 
@@ -156,9 +158,31 @@ internal class SurvivalStatusMenuController : BaseMenuController
         }
 
         // pad empty line
-        for (var i = itemIndex; i <= MaxPageItems; i++)
+        for (var i = itemIndex; i < MaxPageItems; i++)
         {
             sb.Append("<br/>");
+        }
+
+        var hasBackItem = false;
+        var hasExitItem = false;
+
+        for (var i = 0; i < span.Length; i++)
+        {
+            ref readonly var builtMenuItem = ref span[i];
+
+            if (builtMenuItem.ActionKind == MenuItemActionKind.Back)
+            {
+                hasBackItem = true;
+            }
+            else if (builtMenuItem.ActionKind == MenuItemActionKind.Exit)
+            {
+                hasExitItem = true;
+            }
+
+            if (hasBackItem && hasExitItem)
+            {
+                break;
+            }
         }
 
         const string confirmKey  = "MenuSelection.Confirm";
@@ -183,19 +207,53 @@ internal class SurvivalStatusMenuController : BaseMenuController
         }
         else
         {
-            var localizer = _localizerManager.GetLocalizer(Client);
-            confirm  = localizer.TryGet(confirmKey)  ?? confirmKey;
-            prevItem = localizer.TryGet(prevItemKey) ?? prevItemKey;
-            nextItem = localizer.TryGet(nextItemKey) ?? nextItemKey;
-            exit     = localizer.TryGet(exitKey)     ?? exitKey;
-            back     = localizer.TryGet(backKey)     ?? backKey;
+            var locale = _localizerManager.For(Client);
+            confirm  = locale.Text(confirmKey);
+            prevItem = locale.Text(prevItemKey);
+            nextItem = locale.Text(nextItemKey);
+            exit     = locale.Text(exitKey);
+            back     = locale.Text(backKey);
         }
 
         // sb.Append("<font class='fontSize-s'>");
 
-        sb.Append($"{Key("F")} {Text(confirm)} / {Key("F3")} {Text(prevItem)} / {Key("F4")} {Text(nextItem)}");
-        sb.Append("<br>"); // without this it won't show this hint
-        sb.Append($"{Key("Tab")} {Text(exit)} / {Key("Shift")} {Text(back)}");
+        // Use per-item custom hint if the current item defines one, otherwise default hints
+        string? customHint = Cursor >= 0 && Cursor < BuiltMenuItems.Count
+            ? BuiltMenuItems[Cursor].HintText
+            : null;
+
+        if (customHint is not null)
+        {
+            sb.Append(customHint);
+        }
+        else
+        {
+            sb.Append($"{Key(MenuManager.KeyBindings.Confirm.GetBindHint())} {Text(confirm)} / {Key(MenuManager.KeyBindings.MoveUpCursor.GetBindHint())} {Text(prevItem)} / {Key(MenuManager.KeyBindings.MoveDownCursor.GetBindHint())} {Text(nextItem)}");
+
+            var showBottomHint = !(hasBackItem && hasExitItem);
+            var showExitHint   = !hasExitItem;
+            var showBackHint   = !hasBackItem && PreviousMenus.Count > 0;
+
+            if (showBottomHint && (showExitHint || showBackHint))
+            {
+                sb.Append("<br>");
+
+                if (showExitHint)
+                {
+                    sb.Append($"{Key(MenuManager.KeyBindings.Exit.GetBindHint())} {Text(exit)}");
+                }
+
+                if (showBackHint)
+                {
+                    if (showExitHint)
+                    {
+                        sb.Append(" / ");
+                    }
+
+                    sb.Append($"{Key(MenuManager.KeyBindings.GoBack.GetBindHint())} {Text(back)}");
+                }
+            }
+        }
 
         // sb.Append("</font>");
 
@@ -218,5 +276,11 @@ internal class SurvivalStatusMenuController : BaseMenuController
         base.Dispose();
 
         ModSharp.StopTimer(_timer);
+    }
+
+    internal static void ReleaseSharedEvent()
+    {
+        _showSurvivalRespawnStatusEvent?.Dispose();
+        _showSurvivalRespawnStatusEvent = null;
     }
 }

@@ -1,0 +1,126 @@
+// to know more about how to configure, or how this permission manifest works, please check admins.jsonc.example
+{
+  "PermissionCollection": {
+    "admin": [
+      "admin:ban",
+      "admin:unban",
+      "admin:mute",
+      "admin:silence",
+      "admin:gag",
+      "admin:kick",
+      "admin:say",
+      "admin:csay",
+      "admin:hsay",
+      "admin:psay",
+      "admin:noclip",
+      "admin:speed",
+      "admin:gravity",
+      "admin:tp",
+      "admin:bring",
+      "admin:freeze",
+      "admin:unfreeze",
+      "admin:slay",
+      "admin:slap",
+      "admin:hp",
+      "admin:respawn",
+      "admin:god",
+      "admin:give",
+      "admin:strip",
+      "admin:rename",
+      "admin:team",
+      "admin:money",
+      "admin:map",
+      "admin:rcon",
+      "admin:cvar"
+    ]
+  },
+  "Roles": [
+    {
+      // Full access across all modules
+      "Name": "root",
+      "Immunity": 255, // maximum immunity is 255
+      "Permissions": [
+        "*" // Wildcard: Access to every command, including permissions from other modules
+      ]
+    },
+    {
+      // Admin baseline + server config
+      "Name": "senior_admin",
+      "Immunity": 80,
+      "Permissions": [
+        "@admin", // Inherits all Admin permissions
+        "admin:rcon", // Execute server console commands
+        "admin:cvar" // Change server configuration variables
+      ]
+    },
+    {
+      // Daily administration without rcon/cvar
+      "Name": "admin",
+      "Immunity": 60,
+      "Permissions": [
+        "@moderator", // Inherits all Moderator permissions
+        // Broadcast types
+        "admin:hsay", // Hint Say (Center bottom)
+        "admin:csay", // Center Say (Center screen)
+        // Gameplay Management
+        "admin:map", // Change map
+        "admin:team", // Move players to T/CT/Spec
+        // Cheats / Fun
+        "admin:noclip",
+        "admin:god",
+        "admin:hp",
+        "admin:give",
+        "admin:strip",
+        "admin:money",
+        "admin:slay",
+        "admin:respawn",
+        "admin:gravity", // Alter player gravity
+        "admin:speed" // Alter player movement speed
+      ]
+    },
+    {
+      // Core moderation and player management
+      "Name": "moderator",
+      "Immunity": 40,
+      "Permissions": [
+        "@helper", // Inherits all Helper permissions
+        // Enforcement
+        "admin:ban",
+        "admin:unban",
+        "admin:freeze", // Stop a player from moving
+        "admin:unfreeze",
+        // Positioning
+        "admin:tp", // Teleport to user
+        "admin:bring", // Bring user to self
+        // Punishment
+        "admin:slap",
+        "admin:rename"
+      ]
+    },
+    {
+      // Entry-level helpers; no bans or server-impacting commands
+      "Name": "helper",
+      "Immunity": 20,
+      "Permissions": [
+        // Basic Chat Moderation
+        "admin:kick",
+        "admin:mute", // Block voice
+        "admin:gag", // Block text chat
+        "admin:silence", // Block both
+        // Communication
+        "admin:say", // All Chat
+        "admin:psay" // Private Message
+      ]
+    }
+  ],
+  "Admins": [
+    // Example: replace with real SteamID
+    {
+      "Identity": 76561198000000001,
+      "Immunity": 0, // Ignored because they have role "root"
+      "Permissions": [
+        "@root"
+      ]
+    }
+  ]
+}

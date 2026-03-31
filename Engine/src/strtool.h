@@ -20,6 +20,8 @@
 #ifndef MS_ROOT_STRTOOL_H
 #define MS_ROOT_STRTOOL_H
 
+#include "platform.h"
+
 #include <array>
 #include <string>
 #include <vector>
@@ -66,7 +68,7 @@ size_t                   StrCopyFast(char* dst, size_t size, const char* src);
 bool                     StrIsNumber(const std::string& s);
 
 // FormatString (const char*)
-const char* FString(const char* buffer, ...);
+const char* FString(const char* buffer, ...) MS_FMTFUNCTION(1, 2);
 
 std::string LowercaseString(const char* str);
 bool        GetTimeFormatString(char* buf, size_t len);
