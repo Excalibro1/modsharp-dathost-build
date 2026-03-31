@@ -15,6 +15,7 @@ charset = utf-16le
 charset = utf-8
 
 [*.cs]
+csharp_style_prefer_primary_constructors = false
 csharp_style_namespace_declarations = file_scoped:error
 csharp_using_directive_placement = outside_namespace:error
 dotnet_diagnostic.cs4014.severity = error
