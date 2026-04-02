@@ -87,7 +87,7 @@ public readonly unsafe struct TraceResult
     /// <summary>
     ///     The HitGroup of the entity (e.g., Head, Chest).
     /// </summary>
-    /// <returns>Returns <see cref="HitGroupType.Invalid"/> if no entity was hit.</returns>
+    /// <returns>Returns <see cref="HitGroupType.Invalid" /> if no entity was hit.</returns>
     public HitGroupType HitGroup => HitEntity is not null ? HitBoxData->HitGroup : HitGroupType.Invalid;
 
     /// <summary>

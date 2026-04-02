@@ -15,14 +15,14 @@
         <VersionPrefix>2.1</VersionPrefix>
         <VersionSuffix>1</VersionSuffix>
         <Version>$(VersionPrefix).$(VersionSuffix)</Version>
-        
+
         <!-- NuGet -->
         <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/Kxnrl/ModSharp-public</PackageProjectUrl>
         <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
         <PackageTags>ModSharp;CS2</PackageTags>
         <PackageIcon>icon.png</PackageIcon>
-        
+
         <!-- Repository -->
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/Kxnrl/ModSharp-public</RepositoryUrl>
@@ -32,9 +32,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="\" />
-        <None Include="$(MSBuildThisFileDirectory)README.nuget.md" Pack="true" PackagePath="\" />
-        <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="\" />
+        <None Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="\"/>
+        <None Include="$(MSBuildThisFileDirectory)README.nuget.md" Pack="true" PackagePath="\"/>
+        <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

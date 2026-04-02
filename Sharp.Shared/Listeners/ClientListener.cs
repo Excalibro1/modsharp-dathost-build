@@ -64,7 +64,8 @@ public interface IClientListener
     }
 
     /// <summary>
-    ///     Called when a client changes a ConVar in <see cref="IGameClient.GetConVars" /> that has the <see cref="ConVarFlags.UserInfo"/> flag set.
+    ///     Called when a client changes a ConVar in <see cref="IGameClient.GetConVars" /> that has the
+    ///     <see cref="ConVarFlags.UserInfo" /> flag set.
     /// </summary>
     /// <remarks>
     ///     <para>

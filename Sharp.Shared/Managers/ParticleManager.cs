@@ -33,28 +33,28 @@ public interface IParticleManager
     /// <summary>
     ///     Dispatch particle effect (.vpcf)
     /// </summary>
-    void DispatchParticleEffect(string          particle,
-                                IBaseEntity     entity,
-                                Vector          origin,
-                                Vector          angles,
-                                bool            resetEntity = false,
-                                RecipientFilter filter      = default);
+    void DispatchParticleEffect(string particle,
+        IBaseEntity                    entity,
+        Vector                         origin,
+        Vector                         angles,
+        bool                           resetEntity = false,
+        RecipientFilter                filter      = default);
 
     /// <summary>
     ///     Dispatch particle effect (.vpcf)
     /// </summary>
-    void DispatchParticleEffect(string                 particle,
-                                ParticleAttachmentType attachType,
-                                IBaseEntity            entity,
-                                byte                   attachmentIndex = 0,
-                                bool                   resetEntity     = false,
-                                RecipientFilter        filter          = default);
+    void DispatchParticleEffect(string particle,
+        ParticleAttachmentType         attachType,
+        IBaseEntity                    entity,
+        byte                           attachmentIndex = 0,
+        bool                           resetEntity     = false,
+        RecipientFilter                filter          = default);
 
     /// <summary>
     ///     Dispatch effects (csshocked, cstaserrope, gunshotsplash, csblood etc.)
     /// </summary>
-    void DispatchEffect(string          effectName,
-                        IBaseEntity     entity,
-                        Vector          origin,
-                        RecipientFilter filter = default);
+    void DispatchEffect(string effectName,
+        IBaseEntity            entity,
+        Vector                 origin,
+        RecipientFilter        filter = default);
 }

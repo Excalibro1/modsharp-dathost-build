@@ -25,80 +25,82 @@ using Sharp.Shared.Objects;
 using Sharp.Shared.Types;
 using Sharp.Shared.Units;
 
-namespace Sharp.Shared.Managers;    
+namespace Sharp.Shared.Managers;
 
 public interface IClientManager
 {
     public delegate ECommandAction DelegateClientCommand(IGameClient client, StringCommand command);
 
     /// <summary>
-    ///     Add <see cref="IClientListener"/> to listen for events
+    ///     Add <see cref="IClientListener" /> to listen for events
     /// </summary>
     void InstallClientListener(IClientListener listener);
 
     /// <summary>
-    ///     Remove <see cref="IClientListener"/>
+    ///     Remove <see cref="IClientListener" />
     /// </summary>
     void RemoveClientListener(IClientListener listener);
 
     /// <summary>
-    ///     Listen for StringCommand (Virtual Command) sent by <see cref="IGameClient"/> <br />
+    ///     Listen for StringCommand (Virtual Command) sent by <see cref="IGameClient" /> <br />
     ///     Automatically registers with ms_ prefix
     /// </summary>
     void InstallCommandCallback(string command, DelegateClientCommand callback);
 
     /// <summary>
-    ///     Remove listener for StringCommand (Virtual Command) sent by <see cref="IGameClient"/> <br />
+    ///     Remove listener for StringCommand (Virtual Command) sent by <see cref="IGameClient" /> <br />
     ///     Automatically registers with ms_ prefix
     /// </summary>
     void RemoveCommandCallback(string command, DelegateClientCommand callback);
 
     /// <summary>
-    ///     Listen for ConCommand sent by <see cref="IGameClient"/>
+    ///     Listen for ConCommand sent by <see cref="IGameClient" />
     /// </summary>
     void InstallCommandListener(string command, DelegateClientCommand callback);
 
     /// <summary>
-    ///     Remove listener for ConCommand sent by <see cref="IGameClient"/>
+    ///     Remove listener for ConCommand sent by <see cref="IGameClient" />
     /// </summary>
     void RemoveCommandListener(string command, DelegateClientCommand callback);
 
     /// <summary>
-    ///     Find an <see cref="IGameClient"/> by Slot
+    ///     Find an <see cref="IGameClient" /> by Slot
     /// </summary>
     IGameClient? GetGameClient(PlayerSlot slot);
 
     /// <summary>
-    ///     Find an <see cref="IGameClient"/> by UserId
+    ///     Find an <see cref="IGameClient" /> by UserId
     /// </summary>
     IGameClient? GetGameClient(UserID userId);
 
     /// <summary>
-    ///     Find an <see cref="IGameClient"/> by SteamId
+    ///     Find an <see cref="IGameClient" /> by SteamId
     /// </summary>
     IGameClient? GetGameClient(SteamID steamId);
 
     /// <summary>
-    ///     Get connected <see cref="IGameClient"/>s
+    ///     Get connected <see cref="IGameClient" />s
     /// </summary>
     IEnumerable<IGameClient> GetGameClients(bool inGame = false);
 
     /// <summary>
-    ///     Get connected <see cref="IGameClient"/>s
+    ///     Get connected <see cref="IGameClient" />s
     /// </summary>
     List<IGameClient> GetGameClientList(bool inGame = false);
 
     /// <summary>
-    ///     Get the number of <see cref="IGameClient"/>s in the client pool
+    ///     Get the number of <see cref="IGameClient" />s in the client pool
     /// </summary>
     int GetClientCount(bool inGame = false);
 
     /// <summary>
     ///     Immediately kick a player from the game
     /// </summary>
-    /// <param name="client"><see cref="IGameClient"/></param>
+    /// <param name="client">
+    ///     <see cref="IGameClient" />
+    /// </param>
     /// <param name="internalReason">Only recorded in internal game log</param>
-    /// <param name="msgId">The kick reason will be displayed to the <see cref="IGameClient"/> based on ID</param>
+    /// <param name="msgId">The kick reason will be displayed to the <see cref="IGameClient" /> based on ID</param>
     void KickClient(IGameClient    client,
         string                     internalReason,
         NetworkDisconnectionReason msgId = NetworkDisconnectionReason.Invalid);
@@ -106,13 +108,18 @@ public interface IClientManager
     /// <summary>
     ///     Query the value of a given cvar from the client
     /// </summary>
-    /// <param name="client"><see cref="IGameClient"/></param>
+    /// <param name="client">
+    ///     <see cref="IGameClient" />
+    /// </param>
     /// <param name="name">ConVar name</param>
     /// <param name="callback">Callback</param>
     /// <returns>Cookie</returns>
     /// <remarks>
-    ///     <para>Can query any cvar that does not have flag <see cref="ConVarFlags.ServerCannotQuery"/> set.</para>
-    ///     <para>Note that client-side values can be manipulated by cheats/hacks and should not be trusted for security-critical decisions.</para>
+    ///     <para>Can query any cvar that does not have flag <see cref="ConVarFlags.ServerCannotQuery" /> set.</para>
+    ///     <para>
+    ///         Note that client-side values can be manipulated by cheats/hacks and should not be trusted for
+    ///         security-critical decisions.
+    ///     </para>
     /// </remarks>
     int QueryConVar(IGameClient client, string name, Action<IGameClient, QueryConVarValueStatus, string, string> callback);
 

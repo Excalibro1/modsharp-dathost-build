@@ -180,11 +180,11 @@ internal partial class GameClient : NativeObject, IGameClient
     }
 
     public void Print(HudPrintChannel channel,
-                      string          message,
-                      string?         param1 = null,
-                      string?         param2 = null,
-                      string?         param3 = null,
-                      string?         param4 = null)
+        string                        message,
+        string?                       param1 = null,
+        string?                       param2 = null,
+        string?                       param3 = null,
+        string?                       param4 = null)
     {
         CheckDisposed();
         NetMessageHelper.PrintChannelFilter(new RecipientFilter(this), channel, message, param1, param2, param3, param4);

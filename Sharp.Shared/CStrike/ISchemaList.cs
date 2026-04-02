@@ -36,7 +36,7 @@ public interface ISchemaList<T> : INativeObject where T : unmanaged
     T this[int index] { get; set; }
 
     /// <summary>
-    ///     Gets a reference to the element at the specified <paramref name="index"/> <br />
+    ///     Gets a reference to the element at the specified <paramref name="index" /> <br />
     ///     <remarks>Use the <c>ref</c> keyword</remarks>
     /// </summary>
     ref T GetRef(int index);
@@ -52,7 +52,8 @@ public interface ISchemaList<T> : INativeObject where T : unmanaged
     IEnumerator<T> AsEnumerable();
 
     /// <summary>
-    ///     You typically don't need to use this, as it provides zero-allocation enumeration for <c>foreach</c> <seealso cref="Enumerator" />
+    ///     You typically don't need to use this, as it provides zero-allocation enumeration for <c>foreach</c>
+    ///     <seealso cref="Enumerator" />
     /// </summary>
     Enumerator GetEnumerator();
 

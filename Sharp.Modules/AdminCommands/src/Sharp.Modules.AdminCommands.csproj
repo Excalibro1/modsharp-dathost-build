@@ -1,27 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AssemblyName>Sharp.Modules.AdminCommands</AssemblyName>
-		<BaseOutputPath>../../../.build/Sharp.Modules/AdminCommands/</BaseOutputPath>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Sharp.Modules.AdminCommands</AssemblyName>
+        <BaseOutputPath>../../../.build/Sharp.Modules/AdminCommands/</BaseOutputPath>
 
-	</PropertyGroup>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\Sharp.Shared\Sharp.Shared.csproj" Private="false" ExcludeAssets="runtime" />
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Sharp.Shared\Sharp.Shared.csproj" Private="false" ExcludeAssets="runtime"/>
 
-		<ProjectReference Include="..\..\CommandCenter\Shared\Sharp.Modules.CommandCenter.Shared.csproj" Private="false"
-		                  ExcludeAssets="runtime" />
-		<ProjectReference Include="..\..\LocalizerManager\Shared\Sharp.Modules.LocalizerManager.Shared.csproj"
-		                  Private="false" ExcludeAssets="runtime" />
-		<ProjectReference Include="..\..\AdminManager\Shared\Sharp.Modules.AdminManager.Shared.csproj" Private="false"
-		                  ExcludeAssets="runtime" />
-		<ProjectReference Include="..\..\TargetingManager\Shared\Sharp.Modules.TargetingManager.Shared.csproj"
-		                  Private="false" ExcludeAssets="runtime" />
+        <ProjectReference Include="..\..\CommandCenter\Shared\Sharp.Modules.CommandCenter.Shared.csproj" Private="false"
+                          ExcludeAssets="runtime"/>
+        <ProjectReference Include="..\..\LocalizerManager\Shared\Sharp.Modules.LocalizerManager.Shared.csproj"
+                          Private="false" ExcludeAssets="runtime"/>
+        <ProjectReference Include="..\..\AdminManager\Shared\Sharp.Modules.AdminManager.Shared.csproj" Private="false"
+                          ExcludeAssets="runtime"/>
+        <ProjectReference Include="..\..\TargetingManager\Shared\Sharp.Modules.TargetingManager.Shared.csproj"
+                          Private="false" ExcludeAssets="runtime"/>
 
-		<ProjectReference Include="..\Shared\Sharp.Modules.AdminCommands.Shared.csproj" Private="false"
-		                  ExcludeAssets="runtime" />
-	</ItemGroup>
+        <ProjectReference Include="..\Shared\Sharp.Modules.AdminCommands.Shared.csproj" Private="false"
+                          ExcludeAssets="runtime"/>
+    </ItemGroup>
 </Project>

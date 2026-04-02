@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -26,12 +26,12 @@ namespace Sharp.Shared.Managers;
 public interface IEventManager
 {
     /// <summary>
-    ///     Add <see cref="IEventListener"/> to listen for events
+    ///     Add <see cref="IEventListener" /> to listen for events
     /// </summary>
     void InstallEventListener(IEventListener listener);
 
     /// <summary>
-    ///     Remove <see cref="IEventListener"/>
+    ///     Remove <see cref="IEventListener" />
     /// </summary>
     void RemoveEventListener(IEventListener listener);
 

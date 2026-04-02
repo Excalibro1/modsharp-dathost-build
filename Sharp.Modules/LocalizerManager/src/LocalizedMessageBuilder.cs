@@ -27,10 +27,10 @@ namespace Sharp.Modules.LocalizerManager;
 
 internal sealed class LocalizedMessageBuilder : ILocalizedMessage
 {
-    private readonly ILocale              _locale;
-    private readonly IGameClient?         _client;
-    private readonly List<MessageSegment> _segments = new (8);
-    private Func<string, string>?         _processor;
+    private readonly ILocale               _locale;
+    private readonly IGameClient?          _client;
+    private readonly List<MessageSegment>  _segments = new (8);
+    private          Func<string, string>? _processor;
 
     private bool    _applyPrefix = true;
     private string? _prefix;

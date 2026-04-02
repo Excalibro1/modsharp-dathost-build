@@ -166,7 +166,7 @@ public static class Bootstrap
         }
 
         SharedGameObject.SchemaInfo = schema.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
-        
+
         if (Debugger.IsAttached)
         {
             File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "data", "schema.dump.json"),
@@ -553,7 +553,7 @@ public static class Bootstrap
         services.GetRequiredService<ICorePhysicsQueryManager>();
         services.GetRequiredService<ICoreSharpModuleManager>();
         services.GetRequiredService<ICoreParticleManager>();
-        
+
         services.GetRequiredService<ExceptionHandler>().Start();
         services.GetRequiredService<ISharpCore>().InitMainThread();
     }

@@ -34,7 +34,10 @@ public interface ISchemaManager
 {
     /// <summary>
     ///     Gets a Schema field
-    ///     <exception cref="ArgumentException">Thrown if <paramref name="classname" /> or <paramref name="field" /> does not exist</exception>
+    ///     <exception cref="ArgumentException">
+    ///         Thrown if <paramref name="classname" /> or <paramref name="field" /> does not
+    ///         exist
+    ///     </exception>
     /// </summary>
     SchemaField GetSchemaField(string classname, string field);
 
@@ -47,7 +50,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -57,7 +61,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -67,7 +72,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -77,7 +83,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -87,7 +94,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -97,7 +105,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -107,7 +116,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -117,7 +127,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -127,7 +138,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -137,7 +149,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -147,7 +160,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -157,7 +171,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -167,7 +182,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -176,7 +192,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -188,7 +205,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -197,7 +215,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Gets the value of a Schema member variable <br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -247,8 +266,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -263,8 +284,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -279,8 +302,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -295,8 +320,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -311,8 +338,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -327,8 +356,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -343,8 +374,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -359,8 +392,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -375,8 +410,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -391,8 +428,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -408,8 +447,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -424,8 +465,10 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>
@@ -440,7 +483,8 @@ public interface ISchemaManager
     ///     Sets the value of a Schema member <br />
     ///     <remarks>
     ///         No need to explicitly call <seealso cref="NetVarStateChanged" /><br />
-    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically<br /><br />
+    ///         When <paramref name="isStruct" /> is <c>true</c>, <b>NetVarStateChanged</b> will not be called automatically
+    ///         <br /><br />
     ///         This method does not validate whether the provided <paramref name="ptr" /> is a valid Schema instance<br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
@@ -455,7 +499,8 @@ public interface ISchemaManager
     /// <summary>
     ///     Automatically calls <b>NetworkStateChanged</b> or <b>StateChanged</b><br />
     ///     <remarks>
-    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance<br />
+    ///         This method does not validate whether the provided <paramref name="nativeObject" /> is a valid Schema instance
+    ///         <br />
     ///         Passing an invalid instance may cause crashes
     ///     </remarks>
     /// </summary>

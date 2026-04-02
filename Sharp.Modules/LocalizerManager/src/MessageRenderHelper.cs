@@ -29,9 +29,9 @@ namespace Sharp.Modules.LocalizerManager;
 internal static class MessageRenderHelper
 {
     internal static string Render(List<MessageSegment> segments,
-        ILocale              locale,
-        bool                 applyPrefix,
-        string?              prefix)
+        ILocale                                        locale,
+        bool                                           applyPrefix,
+        string?                                        prefix)
     {
         var span      = CollectionsMarshal.AsSpan(segments);
         var hasPrefix = applyPrefix && !string.IsNullOrEmpty(prefix);
@@ -51,7 +51,7 @@ internal static class MessageRenderHelper
                 // No prefix: always short-circuit, no Concat overhead possible.
                 return only.Kind switch
                 {
-                    SegmentKind.Literal          => only.Text ?? string.Empty,
+                    SegmentKind.Literal          => only.Text                  ?? string.Empty,
                     SegmentKind.Value            => only.Args.Arg0?.ToString() ?? string.Empty,
                     SegmentKind.Text             => RenderText(only, locale),
                     SegmentKind.TextWithFallback => RenderTextWithFallback(only, locale),
@@ -63,11 +63,11 @@ internal static class MessageRenderHelper
             // an intermediate string, so Concat is the sole allocation.
             var content = only.Kind switch
             {
-                SegmentKind.Literal                              => only.Text ?? string.Empty,
-                SegmentKind.Value when only.Args.Arg0 is string s => s,
-                SegmentKind.Text             when only.Args.Count == 0 => RenderText(only, locale),
+                SegmentKind.Literal                                    => only.Text ?? string.Empty,
+                SegmentKind.Value when only.Args.Arg0 is string s      => s,
+                SegmentKind.Text when only.Args.Count             == 0 => RenderText(only, locale),
                 SegmentKind.TextWithFallback when only.Args.Count == 0 => RenderTextWithFallback(only, locale),
-                _ => (string?)null,
+                _                                                      => (string?) null,
             };
 
             if (content is not null)
@@ -310,7 +310,8 @@ internal static class MessageRenderHelper
 }
 
 [StructLayout(LayoutKind.Auto)]
-internal readonly record struct MessageSegment(SegmentKind Kind,
+internal readonly record struct MessageSegment(
+    SegmentKind Kind,
     string?     Text,
     string?     Fallback,
     SegmentArgs Args)
@@ -371,10 +372,10 @@ internal readonly struct SegmentArgs
         return args.Length switch
         {
             0 => default,
-            1 => new SegmentArgs(1, args[0], null, null, null),
-            2 => new SegmentArgs(2, args[0], args[1], null, null),
+            1 => new SegmentArgs(1, args[0], null,    null,    null),
+            2 => new SegmentArgs(2, args[0], args[1], null,    null),
             3 => new SegmentArgs(3, args[0], args[1], args[2], null),
-            _ => new SegmentArgs(0, null, null, null, args.ToArray()),
+            _ => new SegmentArgs(0, null,    null,    null,    args.ToArray()),
         };
     }
 

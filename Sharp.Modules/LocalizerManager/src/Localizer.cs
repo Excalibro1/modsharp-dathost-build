@@ -32,8 +32,8 @@ internal class Localizer
     private readonly bool                       _isDefault;
 
     public Localizer(Dictionary<string, string> @default,
-                     Dictionary<string, string> local,
-                     CultureInfo                culture)
+        Dictionary<string, string>              local,
+        CultureInfo                             culture)
     {
         _default   = @default;
         _local     = local;
@@ -68,9 +68,11 @@ internal class Localizer
     public string this[string key] => TryGet(key) ?? throw new KeyNotFoundException($"Missing '{key}' in locale file");
 
     public string? TryGet(string key)
-        => _local.TryGetValue(key, out var local) ? local
-         : _isDefault ? null
-         : _default.GetValueOrDefault(key);
+        => _local.TryGetValue(key, out var local)
+            ? local
+            : _isDefault
+                ? null
+                : _default.GetValueOrDefault(key);
 
     public void AppendFormat(StringBuilder sb, string key, params ReadOnlySpan<object?> args)
         => sb.AppendFormat(_culture, this[key], args);
@@ -87,16 +89,22 @@ internal class Localizer
     public bool TryAppendFormat(StringBuilder sb, string key, params ReadOnlySpan<object?> args)
     {
         var format = TryGet(key);
-        if (format is null) return false;
+
+        if (format is null)
+        {
+            return false;
+        }
 
         try
         {
             sb.AppendFormat(_culture, format, args);
+
             return true;
         }
         catch (FormatException)
         {
             sb.Append(format);
+
             return false;
         }
     }
@@ -104,16 +112,22 @@ internal class Localizer
     public bool TryAppendFormat(StringBuilder sb, string key, object? arg0)
     {
         var format = TryGet(key);
-        if (format is null) return false;
+
+        if (format is null)
+        {
+            return false;
+        }
 
         try
         {
             sb.AppendFormat(_culture, format, arg0);
+
             return true;
         }
         catch (FormatException)
         {
             sb.Append(format);
+
             return false;
         }
     }
@@ -121,16 +135,22 @@ internal class Localizer
     public bool TryAppendFormat(StringBuilder sb, string key, object? arg0, object? arg1)
     {
         var format = TryGet(key);
-        if (format is null) return false;
+
+        if (format is null)
+        {
+            return false;
+        }
 
         try
         {
             sb.AppendFormat(_culture, format, arg0, arg1);
+
             return true;
         }
         catch (FormatException)
         {
             sb.Append(format);
+
             return false;
         }
     }
@@ -138,16 +158,22 @@ internal class Localizer
     public bool TryAppendFormat(StringBuilder sb, string key, object? arg0, object? arg1, object? arg2)
     {
         var format = TryGet(key);
-        if (format is null) return false;
+
+        if (format is null)
+        {
+            return false;
+        }
 
         try
         {
             sb.AppendFormat(_culture, format, arg0, arg1, arg2);
+
             return true;
         }
         catch (FormatException)
         {
             sb.Append(format);
+
             return false;
         }
     }

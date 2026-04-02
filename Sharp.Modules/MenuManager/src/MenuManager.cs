@@ -55,12 +55,12 @@ internal class MenuManager : IModSharpModule, IClientListener, IMenuManager
 
     internal MenuKeyBindings KeyBindings { get; private set; }
 
-    public MenuManager(ISharedSystem  sharedSystem,
-                       string         dllPath,
-                       string         sharpPath,
-                       Version        version,
-                       IConfiguration configuration,
-                       bool           hotReload)
+    public MenuManager(ISharedSystem sharedSystem,
+        string                       dllPath,
+        string                       sharpPath,
+        Version                      version,
+        IConfiguration               configuration,
+        bool                         hotReload)
     {
         var loggerFactory = sharedSystem.GetLoggerFactory();
 
@@ -80,7 +80,6 @@ internal class MenuManager : IModSharpModule, IClientListener, IMenuManager
 
         configuration.GetReloadToken().RegisterChangeCallback(_ => OnConfigReload(), null);
     }
-
 
     private void OnConfigReload()
     {
@@ -103,37 +102,57 @@ internal class MenuManager : IModSharpModule, IClientListener, IMenuManager
     private void InstallCommandBindings(MenuKeyBindings bindings)
     {
         if (bindings.MoveUpCursor.Type == MenuBindingType.Command)
+        {
             _clientManager.InstallCommandListener(bindings.MoveUpCursor.Command!, OnMoveUpCommand);
+        }
 
         if (bindings.MoveDownCursor.Type == MenuBindingType.Command)
+        {
             _clientManager.InstallCommandListener(bindings.MoveDownCursor.Command!, OnMoveDownCommand);
+        }
 
         if (bindings.GoBack.Type == MenuBindingType.Command)
+        {
             _clientManager.InstallCommandListener(bindings.GoBack.Command!, OnGoBackCommand);
+        }
 
         if (bindings.Confirm.Type == MenuBindingType.Command)
+        {
             _clientManager.InstallCommandListener(bindings.Confirm.Command!, OnConfirmCommand);
+        }
 
         if (bindings.Exit.Type == MenuBindingType.Command)
+        {
             _clientManager.InstallCommandListener(bindings.Exit.Command!, OnExitCommand);
+        }
     }
 
     private void RemoveCommandBindings(MenuKeyBindings bindings)
     {
         if (bindings.MoveUpCursor.Type == MenuBindingType.Command)
+        {
             _clientManager.RemoveCommandListener(bindings.MoveUpCursor.Command!, OnMoveUpCommand);
+        }
 
         if (bindings.MoveDownCursor.Type == MenuBindingType.Command)
+        {
             _clientManager.RemoveCommandListener(bindings.MoveDownCursor.Command!, OnMoveDownCommand);
+        }
 
         if (bindings.GoBack.Type == MenuBindingType.Command)
+        {
             _clientManager.RemoveCommandListener(bindings.GoBack.Command!, OnGoBackCommand);
+        }
 
         if (bindings.Confirm.Type == MenuBindingType.Command)
+        {
             _clientManager.RemoveCommandListener(bindings.Confirm.Command!, OnConfirmCommand);
+        }
 
         if (bindings.Exit.Type == MenuBindingType.Command)
+        {
             _clientManager.RemoveCommandListener(bindings.Exit.Command!, OnExitCommand);
+        }
     }
 
     private ECommandAction OnMoveUpCommand(IGameClient client, StringCommand command)
@@ -245,31 +264,36 @@ internal class MenuManager : IModSharpModule, IClientListener, IMenuManager
         }
 
         if (bindings.MoveUpCursor is { Type: MenuBindingType.Button, Button: { } moveUpBtn }
-            && changed.HasFlag(moveUpBtn) && pressed.HasFlag(moveUpBtn))
+            && changed.HasFlag(moveUpBtn)
+            && pressed.HasFlag(moveUpBtn))
         {
             _controllers[@params.Client.Slot]?.MoveUpCursor();
         }
 
         if (bindings.MoveDownCursor is { Type: MenuBindingType.Button, Button: { } moveDownBtn }
-            && changed.HasFlag(moveDownBtn) && pressed.HasFlag(moveDownBtn))
+            && changed.HasFlag(moveDownBtn)
+            && pressed.HasFlag(moveDownBtn))
         {
             _controllers[@params.Client.Slot]?.MoveDownCursor();
         }
 
         if (bindings.GoBack is { Type: MenuBindingType.Button, Button: { } goBackBtn }
-            && changed.HasFlag(goBackBtn) && pressed.HasFlag(goBackBtn))
+            && changed.HasFlag(goBackBtn)
+            && pressed.HasFlag(goBackBtn))
         {
             _controllers[@params.Client.Slot]?.GoBack();
         }
 
         if (bindings.Confirm is { Type: MenuBindingType.Button, Button: { } confirmBtn }
-            && changed.HasFlag(confirmBtn) && pressed.HasFlag(confirmBtn))
+            && changed.HasFlag(confirmBtn)
+            && pressed.HasFlag(confirmBtn))
         {
             _controllers[@params.Client.Slot]?.Confirm();
         }
 
         if (bindings.Exit is { Type: MenuBindingType.Button, Button: { } exitBtn }
-            && changed.HasFlag(exitBtn) && pressed.HasFlag(exitBtn))
+            && changed.HasFlag(exitBtn)
+            && pressed.HasFlag(exitBtn))
         {
             _controllers[@params.Client.Slot]?.Exit();
         }

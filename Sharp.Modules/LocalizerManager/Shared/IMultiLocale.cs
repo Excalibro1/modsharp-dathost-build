@@ -18,12 +18,11 @@
  */
 
 using System;
-using System.Collections.Generic;
 
 namespace Sharp.Modules.LocalizerManager.Shared;
 
 /// <summary>
-/// Locale view for a captured set of clients; intended only for multi-send builders.
+///     Locale view for a captured set of clients; intended only for multi-send builders.
 /// </summary>
 public interface IMultiLocale
 {

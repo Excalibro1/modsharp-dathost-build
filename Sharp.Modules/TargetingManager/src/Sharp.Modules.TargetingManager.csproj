@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AssemblyName>Sharp.Modules.TargetingManager</AssemblyName>
-		<BaseOutputPath>../../../.build/Sharp.Modules/TargetingManager/</BaseOutputPath>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Sharp.Modules.TargetingManager</AssemblyName>
+        <BaseOutputPath>../../../.build/Sharp.Modules/TargetingManager/</BaseOutputPath>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\Sharp.Shared\Sharp.Shared.csproj" Private="false" ExcludeAssets="runtime" />
-		<ProjectReference Include="..\Shared\Sharp.Modules.TargetingManager.Shared.csproj" Private="false" ExcludeAssets="runtime" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Sharp.Shared\Sharp.Shared.csproj" Private="false" ExcludeAssets="runtime"/>
+        <ProjectReference Include="..\Shared\Sharp.Modules.TargetingManager.Shared.csproj" Private="false" ExcludeAssets="runtime"/>
+    </ItemGroup>
 </Project> 

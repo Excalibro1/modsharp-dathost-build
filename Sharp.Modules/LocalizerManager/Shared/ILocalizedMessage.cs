@@ -23,7 +23,7 @@ using Sharp.Shared.Enums;
 namespace Sharp.Modules.LocalizerManager.Shared;
 
 /// <summary>
-/// Fluent localized message builder (new ergonomic API).
+///     Fluent localized message builder (new ergonomic API).
 /// </summary>
 public interface ILocalizedMessage
 {

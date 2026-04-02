@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -54,11 +54,12 @@ public unsafe struct Xmm
 ///         to the 64-bit registers at the moment the hook is called.
 ///     </para>
 ///     <para>
-///         <b>Note:</b> <see cref="rip"/> will point to a trampoline containing the replaced instruction(s).
+///         <b>Note:</b> <see cref="rip" /> will point to a trampoline containing the replaced instruction(s).
 ///     </para>
 ///     <para>
-///         <b>Note:</b> <see cref="rsp"/> is read-only. Modifying it will have no effect.
-///         Use <see cref="trampoline_rsp"/> to modify <c>rsp</c> if needed, but make sure the top of the stack is the <c>rip</c> you want to resume at.
+///         <b>Note:</b> <see cref="rsp" /> is read-only. Modifying it will have no effect.
+///         Use <see cref="trampoline_rsp" /> to modify <c>rsp</c> if needed, but make sure the top of the stack is the
+///         <c>rip</c> you want to resume at.
 ///     </para>
 /// </remarks>
 [StructLayout(LayoutKind.Sequential, Size = 408, Pack = 8)]

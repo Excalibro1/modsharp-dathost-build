@@ -43,8 +43,8 @@ public interface IBaseEntity : ISchemaObject
     /// <summary>
     ///     Gets the true, usable handle for this entity.
     ///     <para>
-    ///     Unlike <see cref="Handle"/>, this ensures the Serial Number in entity handle matches the global list, 
-    ///     allowing you to find the entity even if it is currently flagged as INVALID_ENTITY_HANDLE.
+    ///         Unlike <see cref="Handle" />, this ensures the Serial Number in entity handle matches the global list,
+    ///         allowing you to find the entity even if it is currently flagged as INVALID_ENTITY_HANDLE.
     ///     </para>
     /// </summary>
     CEntityHandle<IBaseEntity> RefHandle { get; }
@@ -97,21 +97,24 @@ public interface IBaseEntity : ISchemaObject
     /// <summary>
     ///     Return the index of this entity <br />
     ///     <remarks>
-    ///         Cannot guarantee it is valid. Please call <see cref="IsValid" />, or this entity is valid in current context, before using this field.
+    ///         Cannot guarantee it is valid. Please call <see cref="IsValid" />, or this entity is valid in current context,
+    ///         before using this field.
     ///     </remarks>
     /// </summary>
     EntityIndex Index { get; }
 
     /// <summary>
     ///     读取Classname<br />
-    ///         Make sure you call <see cref="IsValid" />, or this entity is valid in current context, before using this field, otherwise it will crash the server
+    ///     Make sure you call <see cref="IsValid" />, or this entity is valid in current context, before using this field,
+    ///     otherwise it will crash the server
     /// </summary>
     string Classname { get; }
 
     /// <summary>
     ///     Get the targetname of this entity<br />
     ///     <remarks>
-    ///         Make sure you call <see cref="IsValid" />, or this entity is valid in current context, before using this field, otherwise it will crash the server
+    ///         Make sure you call <see cref="IsValid" />, or this entity is valid in current context, before using this field,
+    ///         otherwise it will crash the server
     ///     </remarks>
     /// </summary>
     string Name { get; }
@@ -129,7 +132,8 @@ public interface IBaseEntity : ISchemaObject
     /// <summary>
     ///     Is this entity allowed to take damage <br />
     ///     <remarks>
-    ///         Make sure you call <see cref="IsValid" />, or this entity is valid in current context, before using this field, otherwise it will crash the server
+    ///         Make sure you call <see cref="IsValid" />, or this entity is valid in current context, before using this field,
+    ///         otherwise it will crash the server
     ///     </remarks>
     /// </summary>
     bool AllowTakesDamage { get; set; }
@@ -180,7 +184,7 @@ public interface IBaseEntity : ISchemaObject
     IBaseEntity? EffectEntity { get; }
 
     /// <summary>
-    ///      Get the damage filter entity handle applied to this entity
+    ///     Get the damage filter entity handle applied to this entity
     /// </summary>
     CEntityHandle<IBaseFilter> DamageFilterEntityHandle { get; set; }
 
@@ -370,12 +374,14 @@ public interface IBaseEntity : ISchemaObject
     /// <remarks>
     ///     This is the programmatic way to inflict damage.
     ///     <para>
-    ///     Calling this triggers <see cref="Sharp.Shared.Managers.IHookManager.PlayerDispatchTraceAttack"/> (for pawns) or 
-    ///     <see cref="Sharp.Shared.Managers.IHookManager.EntityDispatchTraceAttack"/> (for others), unless <paramref name="bypassHook"/> is <see langword="true"/>.
+    ///         Calling this triggers <see cref="Sharp.Shared.Managers.IHookManager.PlayerDispatchTraceAttack" /> (for pawns)
+    ///         or
+    ///         <see cref="Sharp.Shared.Managers.IHookManager.EntityDispatchTraceAttack" /> (for others), unless
+    ///         <paramref name="bypassHook" /> is <see langword="true" />.
     ///     </para>
     /// </remarks>
     /// <param name="info">The damage information to apply.</param>
-    /// <param name="bypassHook">If <see langword="true"/>, the damage is applied directly without being intercepted by hooks.</param>
+    /// <param name="bypassHook">If <see langword="true" />, the damage is applied directly without being intercepted by hooks.</param>
     /// <returns>The result returned by the engine (or the hook), typically representing the damage applied.</returns>
     long DispatchTraceAttack(in TakeDamageInfo info, bool bypassHook = false);
 
@@ -385,12 +391,14 @@ public interface IBaseEntity : ISchemaObject
     /// <remarks>
     ///     This is the programmatic way to inflict damage using a raw pointer.
     ///     <para>
-    ///     Calling this triggers <see cref="Sharp.Shared.Managers.IHookManager.PlayerDispatchTraceAttack"/> (for pawns) or 
-    ///     <see cref="Sharp.Shared.Managers.IHookManager.EntityDispatchTraceAttack"/> (for others), unless <paramref name="bypassHook"/> is <see langword="true"/>.
+    ///         Calling this triggers <see cref="Sharp.Shared.Managers.IHookManager.PlayerDispatchTraceAttack" /> (for pawns)
+    ///         or
+    ///         <see cref="Sharp.Shared.Managers.IHookManager.EntityDispatchTraceAttack" /> (for others), unless
+    ///         <paramref name="bypassHook" /> is <see langword="true" />.
     ///     </para>
     /// </remarks>
     /// <param name="info">A pointer to the damage information struct. Must not be null.</param>
-    /// <param name="bypassHook">If <see langword="true"/>, the damage is applied directly without being intercepted by hooks.</param>
+    /// <param name="bypassHook">If <see langword="true" />, the damage is applied directly without being intercepted by hooks.</param>
     /// <returns>The result returned by the engine (or the hook), typically representing the damage applied.</returns>
     unsafe long DispatchTraceAttack(TakeDamageInfo* info, bool bypassHook = false);
 
@@ -452,7 +460,7 @@ public interface IBaseEntity : ISchemaObject
     Vector GetAbsVelocity();
 
     /// <summary>
-    ///      Set the absolute velocity in world space, EFL_DIRTY_ABSVELOCITY
+    ///     Set the absolute velocity in world space, EFL_DIRTY_ABSVELOCITY
     /// </summary>
     void SetAbsVelocity(Vector velocity);
 

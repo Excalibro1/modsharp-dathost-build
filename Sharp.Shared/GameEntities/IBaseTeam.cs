@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -30,27 +30,27 @@ public interface IBaseTeam : IBaseEntity
     int Score { get; set; }
 
     /// <summary>
-    /// Score of FirstHalf
+    ///     Score of FirstHalf
     /// </summary>
     int ScoreFirstHalf { get; set; }
 
     /// <summary>
-    /// Score of SecondHalf
+    ///     Score of SecondHalf
     /// </summary>
     int ScoreSecondHalf { get; set; }
 
     /// <summary>
-    /// Score of Overtime
+    ///     Score of Overtime
     /// </summary>
     int ScoreOvertime { get; set; }
 
     /// <summary>
-    /// m_iLastUpdateSentAt
+    ///     m_iLastUpdateSentAt
     /// </summary>
     int LastUpdateSentAt { get; set; }
 
     /// <summary>
-    /// m_flNextResourceTime
+    ///     m_flNextResourceTime
     /// </summary>
     float NextResourceTime { get; set; }
 }

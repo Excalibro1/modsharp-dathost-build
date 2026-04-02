@@ -27,14 +27,14 @@ namespace Sharp.Modules.MenuManager.Core;
 internal enum MenuBindingType
 {
     Command,
-    Button
+    Button,
 }
 
 internal readonly struct MenuActionBinding
 {
-    public MenuBindingType      Type    { get; }
-    public string?              Command { get; }
-    public UserCommandButtons?  Button  { get; }
+    public MenuBindingType     Type    { get; }
+    public string?             Command { get; }
+    public UserCommandButtons? Button  { get; }
 
     private MenuActionBinding(MenuBindingType type, string? command, UserCommandButtons? button)
     {
@@ -44,10 +44,10 @@ internal readonly struct MenuActionBinding
     }
 
     public static MenuActionBinding FromCommand(string command)
-        => new(MenuBindingType.Command, command, null);
+        => new (MenuBindingType.Command, command, null);
 
     public static MenuActionBinding FromButton(UserCommandButtons button)
-        => new(MenuBindingType.Button, null, button);
+        => new (MenuBindingType.Button, null, button);
 
     /// <summary>
     ///     Returns the bind hint string for display in menus.
@@ -56,7 +56,9 @@ internal readonly struct MenuActionBinding
     public string GetBindHint()
     {
         if (Type == MenuBindingType.Command)
+        {
             return $"{{s:bind_{Command}}}";
+        }
 
         return Button switch
         {
@@ -84,14 +86,13 @@ internal readonly struct MenuActionBinding
         => Type == MenuBindingType.Command ? $"Command({Command})" : $"Button({Button})";
 }
 
-
 internal sealed class MenuKeyBindings
 {
-    public MenuActionBinding MoveUpCursor   { get; private set; } = MenuActionBinding.FromCommand("autobuy");
-    public MenuActionBinding MoveDownCursor  { get; private set; } = MenuActionBinding.FromCommand("rebuy");
-    public MenuActionBinding GoBack          { get; private set; } = MenuActionBinding.FromButton(UserCommandButtons.Speed);
-    public MenuActionBinding Confirm         { get; private set; } = MenuActionBinding.FromButton(UserCommandButtons.LookAtWeapon);
-    public MenuActionBinding Exit            { get; private set; } = MenuActionBinding.FromButton(UserCommandButtons.Scoreboard);
+    public MenuActionBinding MoveUpCursor { get; private set; } = MenuActionBinding.FromCommand("autobuy");
+    public MenuActionBinding MoveDownCursor { get; private set; } = MenuActionBinding.FromCommand("rebuy");
+    public MenuActionBinding GoBack { get; private set; } = MenuActionBinding.FromButton(UserCommandButtons.Speed);
+    public MenuActionBinding Confirm { get; private set; } = MenuActionBinding.FromButton(UserCommandButtons.LookAtWeapon);
+    public MenuActionBinding Exit { get; private set; } = MenuActionBinding.FromButton(UserCommandButtons.Scoreboard);
 
     public static MenuKeyBindings Load(IConfiguration configuration, ILogger logger)
     {
@@ -99,7 +100,9 @@ internal sealed class MenuKeyBindings
         var section  = configuration.GetSection("MenuManager:KeyBindings");
 
         if (!section.Exists())
+        {
             return bindings;
+        }
 
         bindings.MoveUpCursor   = ParseBinding(section, "MoveUpCursor",   bindings.MoveUpCursor,   logger);
         bindings.MoveDownCursor = ParseBinding(section, "MoveDownCursor", bindings.MoveDownCursor, logger);
@@ -118,12 +121,17 @@ internal sealed class MenuKeyBindings
         return bindings;
     }
 
-    private static MenuActionBinding ParseBinding(IConfigurationSection parent, string key, MenuActionBinding fallback, ILogger logger)
+    private static MenuActionBinding ParseBinding(IConfigurationSection parent,
+        string                                                          key,
+        MenuActionBinding                                               fallback,
+        ILogger                                                         logger)
     {
         var section = parent.GetSection(key);
 
         if (!section.Exists())
+        {
             return fallback;
+        }
 
         var typeValue = section["Type"];
 
@@ -136,7 +144,10 @@ internal sealed class MenuKeyBindings
 
         if (!TryParseBindingType(typeValue, out var type))
         {
-            logger.LogWarning("MenuManager KeyBindings: '{Key}' has unknown type '{Type}', using default {Default}", key, typeValue, fallback);
+            logger.LogWarning("MenuManager KeyBindings: '{Key}' has unknown type '{Type}', using default {Default}",
+                              key,
+                              typeValue,
+                              fallback);
 
             return fallback;
         }
@@ -149,7 +160,10 @@ internal sealed class MenuKeyBindings
 
                 if (string.IsNullOrWhiteSpace(command))
                 {
-                    logger.LogWarning("MenuManager KeyBindings: '{Key}' type is Command but missing 'Command' value, using default {Default}", key, fallback);
+                    logger.LogWarning(
+                        "MenuManager KeyBindings: '{Key}' type is Command but missing 'Command' value, using default {Default}",
+                        key,
+                        fallback);
 
                     return fallback;
                 }
@@ -163,7 +177,10 @@ internal sealed class MenuKeyBindings
                 if (string.IsNullOrWhiteSpace(buttonValue)
                     || !TryParseButton(buttonValue, out var button))
                 {
-                    logger.LogWarning("MenuManager KeyBindings: '{Key}' type is Button but has invalid or missing 'Button' value, using default {Default}", key, fallback);
+                    logger.LogWarning(
+                        "MenuManager KeyBindings: '{Key}' type is Button but has invalid or missing 'Button' value, using default {Default}",
+                        key,
+                        fallback);
 
                     return fallback;
                 }
@@ -171,7 +188,10 @@ internal sealed class MenuKeyBindings
                 return MenuActionBinding.FromButton(button);
             }
             default:
-                logger.LogWarning("MenuManager KeyBindings: '{Key}' has unknown type '{Type}', using default {Default}", key, type, fallback);
+                logger.LogWarning("MenuManager KeyBindings: '{Key}' has unknown type '{Type}', using default {Default}",
+                                  key,
+                                  type,
+                                  fallback);
 
                 return fallback;
         }
@@ -182,14 +202,16 @@ internal sealed class MenuKeyBindings
         if (int.TryParse(value, out var numericType)
             && Enum.IsDefined(typeof(MenuBindingType), numericType))
         {
-            type = (MenuBindingType)numericType;
+            type = (MenuBindingType) numericType;
 
             return true;
         }
 
         if (Enum.TryParse<MenuBindingType>(value, true, out type)
             && Enum.IsDefined(typeof(MenuBindingType), type))
+        {
             return true;
+        }
 
         type = default;
 
@@ -201,14 +223,16 @@ internal sealed class MenuKeyBindings
         if (ulong.TryParse(value, out var numericButton)
             && Enum.IsDefined(typeof(UserCommandButtons), numericButton))
         {
-            button = (UserCommandButtons)numericButton;
+            button = (UserCommandButtons) numericButton;
 
             return true;
         }
 
         if (Enum.TryParse<UserCommandButtons>(value, true, out button)
             && Enum.IsDefined(typeof(UserCommandButtons), button))
+        {
             return true;
+        }
 
         button = default;
 
@@ -220,19 +244,29 @@ internal sealed class MenuKeyBindings
         UserCommandButtons mask = 0;
 
         if (MoveUpCursor.Type == MenuBindingType.Button)
+        {
             mask |= MoveUpCursor.Button!.Value;
+        }
 
         if (MoveDownCursor.Type == MenuBindingType.Button)
+        {
             mask |= MoveDownCursor.Button!.Value;
+        }
 
         if (GoBack.Type == MenuBindingType.Button)
+        {
             mask |= GoBack.Button!.Value;
+        }
 
         if (Confirm.Type == MenuBindingType.Button)
+        {
             mask |= Confirm.Button!.Value;
+        }
 
         if (Exit.Type == MenuBindingType.Button)
+        {
             mask |= Exit.Button!.Value;
+        }
 
         return mask;
     }

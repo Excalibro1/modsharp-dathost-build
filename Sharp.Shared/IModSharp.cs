@@ -83,7 +83,7 @@ public interface IModSharp
     nint GetIEngine();
 
     /// <summary>
-    ///     Get GameRules (not available in <see cref="IGameListener.OnGameShutdown"/>)
+    ///     Get GameRules (not available in <see cref="IGameListener.OnGameShutdown" />)
     /// </summary>
     IGameRules GetGameRules();
 
@@ -356,22 +356,22 @@ public interface IModSharp
 #region Listener
 
     /// <summary>
-    ///     Install <see cref="IGameListener"/> to listen for game events
+    ///     Install <see cref="IGameListener" /> to listen for game events
     /// </summary>
     void InstallGameListener(IGameListener listener);
 
     /// <summary>
-    ///     Remove <see cref="IGameListener"/>
+    ///     Remove <see cref="IGameListener" />
     /// </summary>
     void RemoveGameListener(IGameListener listener);
 
     /// <summary>
-    ///     Install <see cref="ISteamListener"/> to listen for Steam events
+    ///     Install <see cref="ISteamListener" /> to listen for Steam events
     /// </summary>
     void InstallSteamListener(ISteamListener listener);
 
     /// <summary>
-    ///     Remove <see cref="ISteamListener"/>
+    ///     Remove <see cref="ISteamListener" />
     /// </summary>
     void RemoveSteamListener(ISteamListener listener);
 

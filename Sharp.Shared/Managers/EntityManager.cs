@@ -30,12 +30,12 @@ namespace Sharp.Shared.Managers;
 public interface IEntityManager
 {
     /// <summary>
-    ///     Add <see cref="IEntityListener"/> to listen for events
+    ///     Add <see cref="IEntityListener" /> to listen for events
     /// </summary>
     void InstallEntityListener(IEntityListener listener);
 
     /// <summary>
-    ///     Remove <see cref="IEntityListener"/>
+    ///     Remove <see cref="IEntityListener" />
     /// </summary>
     void RemoveEntityListener(IEntityListener listener);
 
@@ -54,7 +54,8 @@ public interface IEntityManager
     ///     <remarks>
     ///         Does not guarantee correct type, type is based on input parameter <br />
     ///         If you need to check <c>Pawn</c> please call <see cref="IBaseEntity.AsPlayerPawn" /> yourself <br />
-    ///         If you need to check <c>Controller</c> please call <see cref="IBaseEntity.AsPlayerController" /> yourself <br />
+    ///         If you need to check <c>Controller</c> please call <see cref="IBaseEntity.AsPlayerController" /> yourself
+    ///         <br />
     ///     </remarks>
     /// </summary>
     T MakeEntityFromPointer<T>(nint entity) where T : class, IBaseEntity;

@@ -61,12 +61,13 @@ public enum GameTimerFlags
     /// <remarks>
     ///     Only takes effect in the following cases:
     ///     <list type="bullet">
-    ///         <item>Timer is stopped by <see cref="IModSharp.StopTimer"/></item>
-    ///         <item>Flag contains <see cref="GameTimerFlags.StopOnMapEnd"/> and server changes map</item>
-    ///         <item>Flag contains <see cref="GameTimerFlags.StopOnRoundEnd"/> and round ends</item>
+    ///         <item>Timer is stopped by <see cref="IModSharp.StopTimer" /></item>
+    ///         <item>Flag contains <see cref="GameTimerFlags.StopOnMapEnd" /> and server changes map</item>
+    ///         <item>Flag contains <see cref="GameTimerFlags.StopOnRoundEnd" /> and round ends</item>
     ///     </list>
     ///     <para>
-    ///         Note: If the timer ends normally where the callback function returns <see cref="TimerAction.Stop"/>, it will not call the callback even the flag is set.
+    ///         Note: If the timer ends normally where the callback function returns <see cref="TimerAction.Stop" />, it will
+    ///         not call the callback even the flag is set.
     ///     </para>
     /// </remarks>
     ForceCallOnStop = 1 << 5,

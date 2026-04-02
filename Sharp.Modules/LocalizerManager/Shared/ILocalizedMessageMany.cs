@@ -23,7 +23,7 @@ using Sharp.Shared.Enums;
 namespace Sharp.Modules.LocalizerManager.Shared;
 
 /// <summary>
-/// Fluent localized message builder bound to a captured client set.
+///     Fluent localized message builder bound to a captured client set.
 /// </summary>
 public interface ILocalizedMessageMany
 {

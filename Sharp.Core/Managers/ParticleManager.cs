@@ -89,12 +89,12 @@ internal class ParticleManager : ICoreParticleManager
         DispatchParticleEffectRaw(filter, effectData);
     }
 
-    public void DispatchParticleEffect(string          particle,
-                                       IBaseEntity     entity,
-                                       Vector          origin,
-                                       Vector          angles,
-                                       bool            resetEntity = false,
-                                       RecipientFilter filter      = default)
+    public void DispatchParticleEffect(string particle,
+        IBaseEntity                           entity,
+        Vector                                origin,
+        Vector                                angles,
+        bool                                  resetEntity = false,
+        RecipientFilter                       filter      = default)
     {
         var idx = GetEffectIndex(particle);
 
@@ -119,12 +119,12 @@ internal class ParticleManager : ICoreParticleManager
         DispatchParticleEffectRaw(filter, effectData);
     }
 
-    public void DispatchParticleEffect(string                 particle,
-                                       ParticleAttachmentType attachType,
-                                       IBaseEntity            entity,
-                                       byte                   attachmentIndex = 0,
-                                       bool                   resetEntity     = false,
-                                       RecipientFilter        filter          = default)
+    public void DispatchParticleEffect(string particle,
+        ParticleAttachmentType                attachType,
+        IBaseEntity                           entity,
+        byte                                  attachmentIndex = 0,
+        bool                                  resetEntity     = false,
+        RecipientFilter                       filter          = default)
     {
         var idx = GetEffectIndex(particle);
 

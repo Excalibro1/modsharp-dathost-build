@@ -89,7 +89,7 @@ public interface ITransmitManager
     /// </summary>
     /// <param name="type">Temporary entity type</param>
     /// <param name="slot">IGameClient slot</param>
-    /// <returns><see langword="true"/> if the entity type is blocked; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true" /> if the entity type is blocked; otherwise, <see langword="false" />.</returns>
     bool GetTempEntState(BlockTempEntType type, PlayerSlot slot);
 
     /// <summary>
@@ -97,7 +97,10 @@ public interface ITransmitManager
     /// </summary>
     /// <param name="type">Temporary entity type</param>
     /// <param name="slot">IGameClient slot</param>
-    /// <param name="state">If <see langword="true"/>, the entity type will be blocked (not sent to the client). If <see langword="false"/>, it will be allowed.</param>
+    /// <param name="state">
+    ///     If <see langword="true" />, the entity type will be blocked (not sent to the client). If
+    ///     <see langword="false" />, it will be allowed.
+    /// </param>
     void SetTempEntState(BlockTempEntType type, PlayerSlot slot, bool state);
 
     /// <summary>

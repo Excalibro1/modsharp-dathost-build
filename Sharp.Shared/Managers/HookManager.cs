@@ -125,7 +125,10 @@ public interface IHookManager
 
     /// <summary>
     ///     CCSPlayerPawn->MovementService::RunCommand <br />
-    ///     <remarks>Fields in MovementService is from the last frame. To get Buttons you can get it from <see cref="IPlayerRunCommandHookParams"/></remarks>
+    ///     <remarks>
+    ///         Fields in MovementService is from the last frame. To get Buttons you can get it from
+    ///         <see cref="IPlayerRunCommandHookParams" />
+    ///     </remarks>
     /// </summary>
     IHookType<IPlayerRunCommandHookParams, EmptyHookReturn> PlayerRunCommand { get; }
 
@@ -153,11 +156,14 @@ public interface IHookManager
     /// <remarks>
     ///     This hook is only fired when the entity that takes damage is a player pawn.
     ///     <para>
-    ///     This hook should only return <see cref="EHookAction.Ignored"/> or <see cref="EHookAction.SkipCallReturnOverride"/>.
-    ///     If <see cref="EHookAction.SkipCallReturnOverride"/> is used, the function returns 0 (the specific return value provided by the hook is ignored).
+    ///         This hook should only return <see cref="EHookAction.Ignored" /> or
+    ///         <see cref="EHookAction.SkipCallReturnOverride" />.
+    ///         If <see cref="EHookAction.SkipCallReturnOverride" /> is used, the function returns 0 (the specific return value
+    ///         provided by the hook is ignored).
     ///     </para>
     ///     <para>
-    ///     To make a player take damage programmatically, use <see cref="IBaseEntity.DispatchTraceAttack"/> on the player pawn entity.
+    ///         To make a player take damage programmatically, use <see cref="IBaseEntity.DispatchTraceAttack" /> on the player
+    ///         pawn entity.
     ///     </para>
     /// </remarks>
     IHookType<IPlayerDispatchTraceAttackHookParams, long> PlayerDispatchTraceAttack { get; }
@@ -168,11 +174,14 @@ public interface IHookManager
     /// <remarks>
     ///     This hook is only fired when the entity that takes damage is <b>not</b> a player pawn.
     ///     <para>
-    ///     This hook should only return <see cref="EHookAction.Ignored"/> or <see cref="EHookAction.SkipCallReturnOverride"/>.
-    ///     If <see cref="EHookAction.SkipCallReturnOverride"/> is used, the function returns 0 (the specific return value provided by the hook is ignored).
+    ///         This hook should only return <see cref="EHookAction.Ignored" /> or
+    ///         <see cref="EHookAction.SkipCallReturnOverride" />.
+    ///         If <see cref="EHookAction.SkipCallReturnOverride" /> is used, the function returns 0 (the specific return value
+    ///         provided by the hook is ignored).
     ///     </para>
     ///     <para>
-    ///     To make an entity take damage programmatically, use <see cref="IBaseEntity.DispatchTraceAttack"/> on the target entity.
+    ///         To make an entity take damage programmatically, use <see cref="IBaseEntity.DispatchTraceAttack" /> on the
+    ///         target entity.
     ///     </para>
     /// </remarks>
     IHookType<IEntityDispatchTraceAttackHookParams, long> EntityDispatchTraceAttack { get; }
@@ -251,7 +260,7 @@ public interface IHookManager
     ///     CCSPlayerPawn::PreThink
     /// </summary>
     /// <remarks>
-    ///     Invoked only for living players. Executes after internal pre-processing logic is complete, 
+    ///     Invoked only for living players. Executes after internal pre-processing logic is complete,
     ///     such as handling mp_autokick, domination updates, and healthshot recovery.
     /// </remarks>
     IForwardType<IPlayerThinkForwardParams> PlayerPreThink { get; }
@@ -282,8 +291,9 @@ public interface IHookManager
     ///     CPlayer_MovementService::WalkMove
     /// </summary>
     /// <remarks>
-    ///     This forward is only called when the player is on the ground with (<see cref="MoveType.Walk"/>) and before the engine runs its own logic.
-    ///     You can use <see cref="IPlayerWalkMoveForwardParams.SetSpeed"/> to override the maximum prestrafe speed.
+    ///     This forward is only called when the player is on the ground with (<see cref="MoveType.Walk" />) and before the
+    ///     engine runs its own logic.
+    ///     You can use <see cref="IPlayerWalkMoveForwardParams.SetSpeed" /> to override the maximum prestrafe speed.
     /// </remarks>
     IForwardType<IPlayerWalkMoveForwardParams> PlayerWalkMove { get; }
 
@@ -291,7 +301,8 @@ public interface IHookManager
     ///     CPlayer_MovementService::ProcessMove
     /// </summary>
     /// <remarks>
-    ///     This forward is called regardless of the player's <see cref="MoveType"/>, executing before specific movement functions (like WalkMove, AirMove).
+    ///     This forward is called regardless of the player's <see cref="MoveType" />, executing before specific movement
+    ///     functions (like WalkMove, AirMove).
     /// </remarks>
     IForwardType<IPlayerProcessMoveForwardParams> PlayerProcessMovePre { get; }
 
@@ -299,7 +310,8 @@ public interface IHookManager
     ///     CPlayer_MovementService::ProcessMove
     /// </summary>
     /// <remarks>
-    ///     This forward is called regardless of the player's <see cref="MoveType"/>, executing after the game has processed movement functions (like WalkMove, AirMove).
+    ///     This forward is called regardless of the player's <see cref="MoveType" />, executing after the game has processed
+    ///     movement functions (like WalkMove, AirMove).
     /// </remarks>
     IForwardType<IPlayerProcessMoveForwardParams> PlayerProcessMovePost { get; }
 

@@ -53,6 +53,6 @@ public interface ISharedSystem
     IPhysicsQueryManager GetPhysicsQueryManager();
 
     ISharpModuleManager GetSharpModuleManager();
-    
+
     IParticleManager GetParticleManager();
 }

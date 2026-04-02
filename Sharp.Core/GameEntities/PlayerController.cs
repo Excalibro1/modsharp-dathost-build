@@ -38,11 +38,11 @@ namespace Sharp.Core.GameEntities;
 internal partial class PlayerController : BaseEntity, IPlayerController
 {
     public void Print(HudPrintChannel channel,
-                      string          message,
-                      string?         param1 = null,
-                      string?         param2 = null,
-                      string?         param3 = null,
-                      string?         param4 = null)
+        string                        message,
+        string?                       param1 = null,
+        string?                       param2 = null,
+        string?                       param3 = null,
+        string?                       param4 = null)
     {
         NetMessageHelper.PrintChannelFilter(new RecipientFilter(Index), channel, message, param1, param2, param3, param4);
     }

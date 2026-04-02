@@ -41,11 +41,9 @@ internal static class ProcessLock
     }
 
     public static IProcessLock Create(string key)
-    {
-        return RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+        => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
             ? new WindowsMutexLock(key)
             : new UnixFileLock(key);
-    }
 
     private sealed class WindowsMutexLock : IProcessLock
     {

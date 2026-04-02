@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -75,13 +75,13 @@ public interface IBaseWeapon : IEconEntity
 
     /// <summary>
     ///     Weapon clip, -1 means it does not use Clip1, -2 when it is not a weapon <br />
-    ///     <remarks>If exceeds <see cref="MaxClip"/> limit, will be reset to <see cref="MaxClip"/> when firing</remarks>
+    ///     <remarks>If exceeds <see cref="MaxClip" /> limit, will be reset to <see cref="MaxClip" /> when firing</remarks>
     /// </summary>
     int Clip { get; set; }
 
     /// <summary>
     ///     Weapon reserve ammunition. Returns -1 if ReserveAmmo1 is not used, -2 if not a gun <br />
-    ///     <remarks>If exceeds ReserveAmmo limit, will be reset to <see cref="PrimaryReserveAmmoMax"/> when firing</remarks>
+    ///     <remarks>If exceeds ReserveAmmo limit, will be reset to <see cref="PrimaryReserveAmmoMax" /> when firing</remarks>
     /// </summary>
     int ReserveAmmo { get; set; }
 

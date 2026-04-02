@@ -221,7 +221,8 @@ internal sealed class ModSharpModule
             var module = assembly.GetTypes()
                                  .FirstOrDefault(t => typeof(IModSharpModule).IsAssignableFrom(t) && !t.IsAbstract)
                          ?? throw new
-                             BadImageFormatException($"Assembly '{assembly.GetName().Name}' does not contain a valid IModSharpModule implementation. Ensure a non-abstract class implements IModSharpModule.");
+                             BadImageFormatException(
+                                 $"Assembly '{assembly.GetName().Name}' does not contain a valid IModSharpModule implementation. Ensure a non-abstract class implements IModSharpModule.");
 
             if (assembly.GetName().Version is not { } version)
             {

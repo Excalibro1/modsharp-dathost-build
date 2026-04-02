@@ -121,13 +121,13 @@ public interface IGameEvent : INativeObject
     /// <summary>
     ///     Fire the event.
     ///     <para>
-    ///         If <paramref name="serverOnly"/> is <c>false</c>, the event will be broadcast to all clients.
+    ///         If <paramref name="serverOnly" /> is <c>false</c>, the event will be broadcast to all clients.
     ///     </para>
     /// </summary>
     /// <remarks>
     ///     <para>
     ///         The event object will be automatically disposed after firing the event.
-    ///         Do not manually call <see cref="Dispose"/> if you use this method.
+    ///         Do not manually call <see cref="Dispose" /> if you use this method.
     ///     </para>
     ///     <para>
     ///         Throws an exception if called on a non-custom created event.
@@ -143,7 +143,7 @@ public interface IGameEvent : INativeObject
     ///     <para>
     ///         The event object will <b>NOT</b> be automatically disposed after calling this function.
     ///         You can cache the event object, modify its parameters, and re-fire it as needed.
-    ///         Ensure you manually call <see cref="Dispose"/> when the event is no longer needed (e.g., on module unload).
+    ///         Ensure you manually call <see cref="Dispose" /> when the event is no longer needed (e.g., on module unload).
     ///     </para>
     ///     <para>
     ///         Throws an exception if called on a non-custom created event.
@@ -159,13 +159,13 @@ public interface IGameEvent : INativeObject
     ///     <para>
     ///         The event object will <b>NOT</b> be automatically disposed after calling this function.
     ///         You can cache the event object, modify its parameters, and re-fire it as needed.
-    ///         Ensure you manually call <see cref="Dispose"/> when the event is no longer needed (e.g., on module unload).
+    ///         Ensure you manually call <see cref="Dispose" /> when the event is no longer needed (e.g., on module unload).
     ///     </para>
     ///     <para>
     ///         Throws an exception if called on a non-custom created event.
     ///     </para>
     /// </remarks>
-    /// <param name="client">The target <see cref="IGameClient"/>.</param>
+    /// <param name="client">The target <see cref="IGameClient" />.</param>
     void FireToClient(IGameClient client);
 
     /// <summary>
@@ -175,7 +175,7 @@ public interface IGameEvent : INativeObject
     ///     <para>
     ///         The event object will <b>NOT</b> be automatically disposed after calling this function.
     ///         You can cache the event object, modify its parameters, and re-fire it as needed.
-    ///         Ensure you manually call <see cref="Dispose"/> when the event is no longer needed (e.g., on plugin unload).
+    ///         Ensure you manually call <see cref="Dispose" /> when the event is no longer needed (e.g., on plugin unload).
     ///     </para>
     ///     <para>
     ///         Throws an exception if called on a non-custom created event.
@@ -189,10 +189,11 @@ public interface IGameEvent : INativeObject
     /// <remarks>
     ///     <para>
     ///         This should only be called for custom-created events that were fired using
-    ///         <see cref="FireToClient(int)"/>, <see cref="FireToClient(IGameClient)"/>, or <see cref="FireToClients"/>.
+    ///         <see cref="FireToClient(int)" />, <see cref="FireToClient(IGameClient)" />, or <see cref="FireToClients" />.
     ///     </para>
     ///     <para>
-    ///         <b>WARNING:</b> Calling this method on an event that has already been disposed or fired via <see cref="Fire(bool)"/>
+    ///         <b>WARNING:</b> Calling this method on an event that has already been disposed or fired via
+    ///         <see cref="Fire(bool)" />
     ///         may cause the server to crash.
     ///     </para>
     ///     <para>

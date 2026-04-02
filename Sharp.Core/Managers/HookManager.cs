@@ -364,9 +364,9 @@ internal class HookManager : ICoreHookManager
 
 #region Player Movement
 
-    private readonly PlayerWalkMoveForward               _playerWalkMove;
-    private readonly PlayerProcessMovePreForward         _playerProcessMovePre;
-    private readonly PlayerProcessMovePostForward        _playerProcessMovePost;
+    private readonly PlayerWalkMoveForward        _playerWalkMove;
+    private readonly PlayerProcessMovePreForward  _playerProcessMovePre;
+    private readonly PlayerProcessMovePostForward _playerProcessMovePost;
 
 #endregion
 

@@ -40,7 +40,8 @@ public interface ISchemaEmbeddedList<T> : INativeObject
     IEnumerator<T> AsEnumerable();
 
     /// <summary>
-    ///     You typically don't need to use this, as it provides zero-allocation enumeration for <c>foreach</c> <seealso cref="Enumerator" />
+    ///     You typically don't need to use this, as it provides zero-allocation enumeration for <c>foreach</c>
+    ///     <seealso cref="Enumerator" />
     /// </summary>
     Enumerator GetEnumerator();
 

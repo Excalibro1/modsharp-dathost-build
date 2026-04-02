@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -43,7 +43,7 @@ internal partial class BaseTeam : BaseEntity, IBaseTeam
     private partial SchemaField GetLastUpdateSentAtField();
 
     [NativeSchemaField("CCSTeam", "m_flNextResourceTime", typeof(float))]
-    private partial SchemaField GetNextResourceTimeField(); 
+    private partial SchemaField GetNextResourceTimeField();
 
 #endregion
 }

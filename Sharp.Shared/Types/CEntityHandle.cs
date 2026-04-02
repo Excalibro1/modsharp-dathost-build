@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -59,9 +59,8 @@ public readonly struct CEntityHandle<T> :
     public int GetEHandleInt()
         => unchecked((int) _value);
 
-    
     /// <summary>
-    ///     Casts the handle to a different entity type. 
+    ///     Casts the handle to a different entity type.
     ///     (Required because generic structs do not support implicit variance).
     /// </summary>
     public CEntityHandle<TOut> As<TOut>() where TOut : class, IBaseEntity

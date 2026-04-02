@@ -237,10 +237,10 @@ internal sealed class InputManager : IModSharpModule, IInputManager
         ProcessCombinationKeys(@params.Client, @params.Service.KeyButtons, @params.Service.KeyChangedButtons);
     }
 
-    private void ProcessKeyStates(IGameClient        client,
-        IMovementService   movementService,
-        UserCommandButtons targetButton,
-        InputKey           inputKey)
+    private void ProcessKeyStates(IGameClient client,
+        IMovementService                      movementService,
+        UserCommandButtons                    targetButton,
+        InputKey                              inputKey)
     {
         if (!_inputListeners.TryGetValue(inputKey, out var listenerInfo))
         {

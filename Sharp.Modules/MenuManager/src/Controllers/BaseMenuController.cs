@@ -31,7 +31,7 @@ internal abstract class BaseMenuController : IInternalMenuController
 {
     protected const int MaxPageItems = 5;
 
-    public IGameClient Client { get; }
+    public IGameClient Client    { get; }
     public ulong       SessionId { get; }
 
     protected readonly Stack<PreviousMenu> PreviousMenus  = new ();
@@ -225,11 +225,11 @@ internal abstract class BaseMenuController : IInternalMenuController
 
             if (context.State == MenuItemState.Spacer)
             {
-                BuiltMenuItems.Add(new (string.Empty,
-                                        MenuItemState.Spacer,
-                                        0,
-                                        ActionKind: context.ActionKind,
-                                        HintText: context.HintText));
+                BuiltMenuItems.Add(new BuiltMenuItem(string.Empty,
+                                                     MenuItemState.Spacer,
+                                                     0,
+                                                     ActionKind: context.ActionKind,
+                                                     HintText: context.HintText));
 
                 continue;
             }
@@ -253,13 +253,13 @@ internal abstract class BaseMenuController : IInternalMenuController
 
             var content = context.Title ?? string.Empty;
 
-            BuiltMenuItems.Add(new (content,
-                                    context.State,
-                                    0,
-                                    context.Action,
-                                    context.Color,
-                                    context.ActionKind,
-                                    context.HintText));
+            BuiltMenuItems.Add(new BuiltMenuItem(content,
+                                                 context.State,
+                                                 0,
+                                                 context.Action,
+                                                 context.Color,
+                                                 context.ActionKind,
+                                                 context.HintText));
         }
     }
 
@@ -357,9 +357,7 @@ internal abstract class BaseMenuController : IInternalMenuController
     }
 
     public bool IsInCurrentMenu(Menu menuInstance)
-    {
-        return ReferenceEquals(Menu, menuInstance);
-    }
+        => ReferenceEquals(Menu, menuInstance);
 
     public void Confirm()
     {

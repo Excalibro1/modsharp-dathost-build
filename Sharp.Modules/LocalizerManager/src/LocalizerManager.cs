@@ -64,20 +64,20 @@ internal class LocalizerManager : IModSharpModule, ILocalizerManager, IClientLis
     private static readonly JsonSerializerOptions Option
         = new () { ReadCommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true };
 
-    public LocalizerManager(ISharedSystem  sharedSystem,
-                            string         dllPath,
-                            string         sharpPath,
-                            Version        version,
-                            IConfiguration configuration,
-                            bool           hotReload)
+    public LocalizerManager(ISharedSystem sharedSystem,
+        string                            dllPath,
+        string                            sharpPath,
+        Version                           version,
+        IConfiguration                    configuration,
+        bool                              hotReload)
     {
         var loggerFactory = sharedSystem.GetLoggerFactory();
 
-        _logger         = loggerFactory.CreateLogger<LocalizerManager>();
-        _modSharp       = sharedSystem.GetModSharp();
-        _modules        = sharedSystem.GetSharpModuleManager();
-        _clients        = sharedSystem.GetClientManager();
-        _conVar         = sharedSystem.GetConVarManager();
+        _logger   = loggerFactory.CreateLogger<LocalizerManager>();
+        _modSharp = sharedSystem.GetModSharp();
+        _modules  = sharedSystem.GetSharpModuleManager();
+        _clients  = sharedSystem.GetClientManager();
+        _conVar   = sharedSystem.GetConVarManager();
 
         _localizers        = new Dictionary<SteamID, Localizer>(128);
         _localeCache       = new Dictionary<SteamID, Locale>(128);
@@ -236,7 +236,9 @@ internal class LocalizerManager : IModSharpModule, ILocalizerManager, IClientLis
         var id = client.SteamId;
 
         if (_localeCache.TryGetValue(id, out var cached))
+        {
             return cached;
+        }
 
         var locale = new Locale(GetLocalizer(client), client, DefaultPrefix);
         _localeCache[id] = locale;
@@ -280,11 +282,12 @@ internal class LocalizerManager : IModSharpModule, ILocalizerManager, IClientLis
 
                 if (locale.TryGetValue(key, out var old) && !suppressDuplicationWarnings)
                 {
-                    _logger.LogWarning("Duplicate localization key '{key}' in language '{lang}', override to [{value}] from [{old}]",
-                                       key,
-                                       lang,
-                                       value,
-                                       old);
+                    _logger.LogWarning(
+                        "Duplicate localization key '{key}' in language '{lang}', override to [{value}] from [{old}]",
+                        key,
+                        lang,
+                        value,
+                        old);
                 }
 
                 locale[key] = value;

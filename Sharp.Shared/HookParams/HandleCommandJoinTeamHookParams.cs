@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -22,10 +22,11 @@ namespace Sharp.Shared.HookParams;
 public interface IHandleCommandJoinTeamHookParams : IFunctionParams, IPlayerFunctionParams
 {
     /// <summary>
-    /// Gets the index of the team the player is attempting to join. 
-    /// A value of 0 indicates the "Auto Select" option was chosen, allowing the game logic to assign the team.
+    ///     Gets the index of the team the player is attempting to join.
+    ///     A value of 0 indicates the "Auto Select" option was chosen, allowing the game logic to assign the team.
     /// </summary>
-    int  Team      { get; }
+    int Team { get; }
+
     bool Queue     { get; }
     int  CoachTeam { get; }
 

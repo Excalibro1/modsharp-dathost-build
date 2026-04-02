@@ -41,12 +41,12 @@ internal class SurvivalStatusMenuController : BaseMenuController
         Func<IGameClient, Menu>                     menuFactory,
         IGameClient                                 player,
         ILocalizerManager?                          localization) : base(menuManager,
-                                                                             modSharp,
-                                                                             eventManager,
-                                                                             entityManager,
-                                                                             sessionId,
-                                                                             menuFactory,
-                                                                             player)
+                                                                         modSharp,
+                                                                         eventManager,
+                                                                         entityManager,
+                                                                         sessionId,
+                                                                         menuFactory,
+                                                                         player)
     {
         _localizerManager = localization;
         _timer            = modSharp.PushTimer(Think, 0.01, GameTimerFlags.Repeatable);
@@ -166,7 +166,8 @@ internal class SurvivalStatusMenuController : BaseMenuController
             }
             else if (i == Cursor)
             {
-                sb.Append($"{Colored(cursorColor, Menu.CursorLeft)} {indexStr}{Colored(item.Color ?? textColor, item.Title)} {Colored(cursorColor, Menu.CursorRight)}<br>");
+                sb.Append(
+                    $"{Colored(cursorColor, Menu.CursorLeft)} {indexStr}{Colored(item.Color ?? textColor, item.Title)} {Colored(cursorColor, Menu.CursorRight)}<br>");
             }
             else
             {
@@ -237,7 +238,7 @@ internal class SurvivalStatusMenuController : BaseMenuController
         // sb.Append("<font class='fontSize-s'>");
 
         // Use per-item custom hint if the current item defines one, otherwise default hints
-        string? customHint = Cursor >= 0 && Cursor < BuiltMenuItems.Count
+        var customHint = Cursor >= 0 && Cursor < BuiltMenuItems.Count
             ? BuiltMenuItems[Cursor].HintText
             : null;
 
@@ -247,7 +248,8 @@ internal class SurvivalStatusMenuController : BaseMenuController
         }
         else
         {
-            sb.Append($"{Key(MenuManager.KeyBindings.Confirm.GetBindHint())} {Text(confirm)} / {Key(MenuManager.KeyBindings.MoveUpCursor.GetBindHint())} {Text(prevItem)} / {Key(MenuManager.KeyBindings.MoveDownCursor.GetBindHint())} {Text(nextItem)}");
+            sb.Append(
+                $"{Key(MenuManager.KeyBindings.Confirm.GetBindHint())} {Text(confirm)} / {Key(MenuManager.KeyBindings.MoveUpCursor.GetBindHint())} {Text(prevItem)} / {Key(MenuManager.KeyBindings.MoveDownCursor.GetBindHint())} {Text(nextItem)}");
 
             var showBottomHint = !(hasBackItem && hasExitItem);
             var showExitHint   = !hasExitItem;

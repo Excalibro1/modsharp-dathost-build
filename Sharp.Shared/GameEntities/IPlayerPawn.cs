@@ -64,7 +64,7 @@ public interface IPlayerPawn : IBasePlayerPawn
     ///     Remove weapon and destroy it immediately
     /// </summary>
     /// <remarks>
-    ///     When looping through <see cref="IWeaponService.GetMyWeapons"/>, use <see cref="IModSharp.InvokeFrameAction"/> 
+    ///     When looping through <see cref="IWeaponService.GetMyWeapons" />, use <see cref="IModSharp.InvokeFrameAction" />
     ///     to avoid modifying the collection while iterating
     /// </remarks>
     void RemovePlayerItem(IBaseWeapon item);

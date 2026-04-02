@@ -17,7 +17,6 @@
  * along with ModSharp. If not, see <https://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using Sharp.Shared.Units;
 
@@ -28,17 +27,17 @@ public interface IAdmin
     /// <summary>
     ///     Administrator name
     /// </summary>
-    string               Name        { get; }
+    string Name { get; }
 
     /// <summary>
     ///     Steam ID
     /// </summary>
-    SteamID              Identity    { get; }
+    SteamID Identity { get; }
 
     /// <summary>
     ///     Immunity level
     /// </summary>
-    byte                 Immunity    { get; }
+    byte Immunity { get; }
 
     /// <summary>
     ///     Set of permissions

@@ -36,7 +36,7 @@ public interface ILibraryModule
     ///     Find virtual table by name
     /// </summary>
     /// <param name="tableName">The name of the vtable</param>
-    /// <param name="decorated">If true, will treat <paramref name="tableName"/> as the mangled (symbol) name</param>
+    /// <param name="decorated">If true, will treat <paramref name="tableName" /> as the mangled (symbol) name</param>
     nint GetVirtualTableByName(string tableName, bool decorated = false);
 
     /// <summary>
@@ -95,7 +95,7 @@ public interface ILibraryModule
     ///     Finds all references to the specified pointer within the module's executable code section (.text).
     /// </summary>
     /// <param name="ptr">The target pointer to find references to.</param>
-    /// <returns>An array of addresses (instructions) in the .text section that reference <paramref name="ptr"/>.</returns>
+    /// <returns>An array of addresses (instructions) in the .text section that reference <paramref name="ptr" />.</returns>
     nint[] GetReferencesFromPointer(nint ptr);
 
     /// <summary>
@@ -156,7 +156,7 @@ public interface ILibraryModule
     /// </summary>
     /// <param name="data">The byte sequence to search for.</param>
     /// <param name="readOnly">
-    ///     If <c>true</c>, restricts the search to read-only memory segments (e.g. <c>.rdata</c>). 
+    ///     If <c>true</c>, restricts the search to read-only memory segments (e.g. <c>.rdata</c>).
     ///     If <c>false</c>, scans all non-executable segments (including writable <c>.data</c>).
     /// </param>
     nint FindData(ReadOnlySpan<byte> data, bool readOnly);

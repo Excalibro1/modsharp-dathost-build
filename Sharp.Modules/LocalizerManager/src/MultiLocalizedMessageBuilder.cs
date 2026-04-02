@@ -38,8 +38,8 @@ internal sealed class MultiLocalizedMessageBuilder : ILocalizedMessageMany
     private string? _prefix;
 
     public MultiLocalizedMessageBuilder(IReadOnlyList<IGameClient> clients,
-                                        ILocalizerManager          localizerManager,
-                                        string?                    defaultPrefix)
+        ILocalizerManager                                          localizerManager,
+        string?                                                    defaultPrefix)
     {
         _clients          = clients;
         _localizerManager = localizerManager;

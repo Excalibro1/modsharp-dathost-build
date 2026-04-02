@@ -98,11 +98,11 @@ public interface IGameClient : INativeObject
     ///     Print message to this player
     /// </summary>
     void Print(HudPrintChannel channel,
-               string          message,
-               string?         param1 = null,
-               string?         param2 = null,
-               string?         param3 = null,
-               string?         param4 = null);
+        string                 message,
+        string?                param1 = null,
+        string?                param2 = null,
+        string?                param3 = null,
+        string?                param4 = null);
 
     /// <summary>
     ///     Client sign-on state

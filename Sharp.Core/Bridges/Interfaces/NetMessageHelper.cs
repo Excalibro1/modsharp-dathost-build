@@ -73,12 +73,12 @@ internal static class NetMessageHelper
     }
 
     public static void PrintChannelFilter(RecipientFilter filter,
-                                          HudPrintChannel channel,
-                                          string          message,
-                                          string?         param1 = null,
-                                          string?         param2 = null,
-                                          string?         param3 = null,
-                                          string?         param4 = null)
+        HudPrintChannel                                   channel,
+        string                                            message,
+        string?                                           param1 = null,
+        string?                                           param2 = null,
+        string?                                           param3 = null,
+        string?                                           param4 = null)
     {
         var msg = new CUserMessageTextMsg { Dest = (uint) channel, Param = { message } };
         msg.Param.Add(string.IsNullOrWhiteSpace(param1) ? "" : param1);
@@ -90,12 +90,12 @@ internal static class NetMessageHelper
     }
 
     public static void PrintRadioMessage(RecipientFilter filter,
-                                         PlayerSlot      client,
-                                         string          message,
-                                         string?         param1 = null,
-                                         string?         param2 = null,
-                                         string?         param3 = null,
-                                         string?         param4 = null)
+        PlayerSlot                                       client,
+        string                                           message,
+        string?                                          param1 = null,
+        string?                                          param2 = null,
+        string?                                          param3 = null,
+        string?                                          param4 = null)
     {
         var msg = new CCSUsrMsg_RadioText { MsgDst = 3, Client = client, MsgName = message };
 

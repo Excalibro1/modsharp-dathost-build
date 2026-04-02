@@ -29,7 +29,7 @@ public sealed class ConfigurationWatcher
     private readonly IConfiguration    _configuration;
     private readonly Action            _onReload;
     private readonly CancellationToken _cancellationToken;
-        
+
     public ConfigurationWatcher(IConfiguration configuration, Action onReload, CancellationToken cancellationToken)
     {
         _configuration     = configuration;

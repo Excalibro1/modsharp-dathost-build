@@ -308,6 +308,7 @@ internal partial class BaseEntity : SchemaObject, IBaseEntity, INativeCreatable<
         if (keyValues is null || keyValues.Count == 0)
         {
             Entity.DispatchSpawn(_this, null, 0);
+
             return;
         }
 

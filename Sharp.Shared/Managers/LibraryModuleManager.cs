@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -24,10 +24,12 @@ namespace Sharp.Shared.Managers;
 /// </summary>
 /// <remarks>
 ///     <para>
-///         This interface exposes handles to common game modules like <c>server.dll</c> (Windows) or <c>libserver.so</c> (Linux).
+///         This interface exposes handles to common game modules like <c>server.dll</c> (Windows) or <c>libserver.so</c>
+///         (Linux).
 ///     </para>
 ///     <para>
-///         Use the returned <see cref="ILibraryModule"/> instances to perform operations such as <c>FindPattern</c>, or accessing exported functions.
+///         Use the returned <see cref="ILibraryModule" /> instances to perform operations such as <c>FindPattern</c>, or
+///         accessing exported functions.
 ///     </para>
 /// </remarks>
 public interface ILibraryModuleManager

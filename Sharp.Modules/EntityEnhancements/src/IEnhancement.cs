@@ -18,6 +18,7 @@
  */
 
 namespace Sharp.Modules.EntityEnhancements;
+
 internal interface IEnhancement
 {
     void Init();

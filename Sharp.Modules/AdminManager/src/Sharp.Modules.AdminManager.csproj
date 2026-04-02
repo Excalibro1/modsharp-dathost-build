@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\Sharp.Shared\Sharp.Shared.csproj" Private="false" ExcludeAssets="runtime" />
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Sharp.Shared\Sharp.Shared.csproj" Private="false" ExcludeAssets="runtime"/>
 
-		<ProjectReference Include="..\..\CommandCenter\Shared\Sharp.Modules.CommandCenter.Shared.csproj" Private="false" ExcludeAssets="runtime" />
-		<ProjectReference Include="..\..\LocalizerManager\Shared\Sharp.Modules.LocalizerManager.Shared.csproj" Private="false" ExcludeAssets="runtime" />
-		<ProjectReference Include="..\Shared\Sharp.Modules.AdminManager.Shared.csproj" Private="false" ExcludeAssets="runtime" />
-	</ItemGroup>
+        <ProjectReference Include="..\..\CommandCenter\Shared\Sharp.Modules.CommandCenter.Shared.csproj" Private="false" ExcludeAssets="runtime"/>
+        <ProjectReference Include="..\..\LocalizerManager\Shared\Sharp.Modules.LocalizerManager.Shared.csproj" Private="false" ExcludeAssets="runtime"/>
+        <ProjectReference Include="..\Shared\Sharp.Modules.AdminManager.Shared.csproj" Private="false" ExcludeAssets="runtime"/>
+    </ItemGroup>
 
 </Project>

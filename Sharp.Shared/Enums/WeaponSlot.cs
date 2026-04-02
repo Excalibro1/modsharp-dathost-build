@@ -1,4 +1,4 @@
-/* 
+/*
  * ModSharp
  * Copyright (C) 2023-2026 Kxnrl. All Rights Reserved.
  *
@@ -21,12 +21,12 @@ namespace Sharp.Shared.Enums;
 
 public enum GearSlot
 {
-    Invalid = -1,
-    Rifle = 0,
-    Pistol = 1,
-    Knife = 2,
+    Invalid  = -1,
+    Rifle    = 0,
+    Pistol   = 1,
+    Knife    = 2,
     Grenades = 3,
-    C4 = 4,
+    C4       = 4,
 
     ReservedSlot6  = 5,
     ReservedSlot7  = 6,

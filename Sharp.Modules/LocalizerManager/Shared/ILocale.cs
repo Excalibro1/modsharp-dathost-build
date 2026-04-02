@@ -23,7 +23,7 @@ using System.Globalization;
 namespace Sharp.Modules.LocalizerManager.Shared;
 
 /// <summary>
-/// Client/culture-scoped locale view (new ergonomic API).
+///     Client/culture-scoped locale view (new ergonomic API).
 /// </summary>
 public interface ILocale
 {

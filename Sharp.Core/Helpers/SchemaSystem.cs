@@ -37,7 +37,7 @@ public static class SchemaSystem
         var schemaClass = GetSchemaClass(classname);
         var schemaField = GetSchemaClassField(schemaClass, field);
 
-        var arraySize     = 1;
+        var arraySize = 1;
 
         if (schemaField.Category is SchemaTypeCategory.FixedArray)
         {
