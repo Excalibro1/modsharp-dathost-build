@@ -17,6 +17,8 @@
  * along with ModSharp. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace Sharp.Modules.AdminCommands.Shared;
 
 public readonly record struct AdminOperationType(string Value)

@@ -17,6 +17,8 @@
  * along with ModSharp. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Threading.Tasks;
 using Sharp.Shared.Units;
 
 namespace Sharp.Modules.AdminCommands.Shared;
@@ -75,7 +77,7 @@ public static class AdminOperationStorageExtensions
         string                                               reason,
         string?                                              metadata = null)
     {
-        var expiresAt = duration.HasValue ? DateTime.UtcNow.Add(duration.Value) : (DateTime?) null;
+        DateTime? expiresAt = duration.HasValue ? DateTime.UtcNow.Add(duration.Value) : null;
 
         return new AdminOperationRecord(targetId, type, adminId, DateTime.UtcNow, expiresAt, reason, metadata);
     }

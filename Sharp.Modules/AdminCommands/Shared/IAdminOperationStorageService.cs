@@ -17,6 +17,8 @@
  * along with ModSharp. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Sharp.Shared.Units;
 
 namespace Sharp.Modules.AdminCommands.Shared;

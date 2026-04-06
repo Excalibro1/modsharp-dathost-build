@@ -17,6 +17,7 @@
  * along with ModSharp. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Immutable;
 using Sharp.Shared.Objects;
 using Sharp.Shared.Types;

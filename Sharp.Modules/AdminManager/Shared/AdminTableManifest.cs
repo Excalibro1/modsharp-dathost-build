@@ -17,6 +17,8 @@
  * along with ModSharp. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
+
 namespace Sharp.Modules.AdminManager.Shared;
 
 public record AdminTableManifest(

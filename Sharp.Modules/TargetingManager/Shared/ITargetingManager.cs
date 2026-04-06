@@ -17,6 +17,7 @@
  * along with ModSharp. If not, see <https://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using Sharp.Shared.Objects;
 
 namespace Sharp.Modules.TargetingManager.Shared;
