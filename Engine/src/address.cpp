@@ -51,15 +51,9 @@ extern void InitializeInterfaces();
 
 CBaseGameSystemFactory** CBaseGameSystemFactory::sm_ppFirst = nullptr;
 
-static bool IsAddressInServerModule(std::uintptr_t address, std::size_t size = 1)
+static bool IsReasonableAddress(std::uintptr_t address)
 {
-    if (address == 0 || size == 0)
-        return false;
-
-    const auto base = modules::server->Base();
-    const auto end  = base + modules::server->Size();
-
-    return address >= base && address + size > address && address + size <= end;
+    return CAddress(address).IsValid();
 }
 
 static bool IsReasonableGameSystemName(const char* name)
@@ -67,8 +61,7 @@ static bool IsReasonableGameSystemName(const char* name)
     if (name == nullptr)
         return false;
 
-    const auto address = reinterpret_cast<std::uintptr_t>(name);
-    if (!IsAddressInServerModule(address))
+    if (!IsReasonableAddress(reinterpret_cast<std::uintptr_t>(name)))
         return false;
 
     for (std::size_t i = 0; i < 96; ++i)
@@ -84,10 +77,14 @@ static bool IsReasonableGameSystemName(const char* name)
     return false;
 }
 
-static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first)
+static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first, const char** reject_reason = nullptr)
 {
     if (first == nullptr)
+    {
+        if (reject_reason != nullptr)
+            *reject_reason = "head is null";
         return false;
+    }
 
     constexpr std::array known_names = {
         "GameRulesGameSystem",
@@ -102,14 +99,33 @@ static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first)
     for (auto* current = first; current != nullptr && valid_nodes < 256; current = current->m_pNext)
     {
         const auto current_address = reinterpret_cast<std::uintptr_t>(current);
-        if (!IsAddressInServerModule(current_address, sizeof(CBaseGameSystemFactory)))
+        if (!IsReasonableAddress(current_address))
+        {
+            if (reject_reason != nullptr)
+                *reject_reason = "factory node pointer is invalid";
             return false;
+        }
 
         if (!IsReasonableGameSystemName(current->m_pszName))
+        {
+            if (reject_reason != nullptr)
+                *reject_reason = "factory name pointer/string is invalid";
             return false;
+        }
 
         if (current->m_pInstance == nullptr || !CAddress(current->m_pInstance).IsValid())
+        {
+            if (reject_reason != nullptr)
+                *reject_reason = "factory instance pointer is invalid";
             return false;
+        }
+
+        if (current->m_pNext != nullptr && !IsReasonableAddress(reinterpret_cast<std::uintptr_t>(current->m_pNext)))
+        {
+            if (reject_reason != nullptr)
+                *reject_reason = "factory next pointer is invalid";
+            return false;
+        }
 
         found_known |= std::ranges::any_of(known_names, [&](const char* name) {
             return std::strcmp(current->m_pszName, name) == 0;
@@ -118,7 +134,21 @@ static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first)
         ++valid_nodes;
     }
 
-    return valid_nodes >= 4 && found_known;
+    if (valid_nodes < 4)
+    {
+        if (reject_reason != nullptr)
+            *reject_reason = "factory list is too short";
+        return false;
+    }
+
+    if (!found_known)
+    {
+        if (reject_reason != nullptr)
+            *reject_reason = "factory list did not contain expected names";
+        return false;
+    }
+
+    return true;
 }
 
 static void FindCEntityIdentity_SetEntityName()
@@ -255,9 +285,10 @@ static void FindGameSystemFactory()
                     continue;
                 }
 
-                if (!ValidateGameSystemFactoryList(first))
+                const char* reject_reason = nullptr;
+                if (!ValidateGameSystemFactoryList(first, &reject_reason))
                 {
-                    WARN("Candidate at server+0x%llx rejected: factory list validation failed", pending_addr - modules::server->Base());
+                    WARN("Candidate at server+0x%llx rejected: %s", pending_addr - modules::server->Base(), reject_reason ? reject_reason : "factory list validation failed");
                     pending_reg  = ZYDIS_REGISTER_NONE;
                     pending_addr = 0;
                     continue;
