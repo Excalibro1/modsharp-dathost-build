@@ -118,6 +118,13 @@ static void FindGameSystemFactory()
         return;
     }
 
+    const auto range = modules::server->GetFunctionRange(function_address);
+    if (!range)
+    {
+        FatalError("Failed to get function range for IGameSystem::InitAllSystems");
+        return;
+    }
+
     ZydisDecoder decoder;
     if (!ZYAN_SUCCESS(ZydisDecoderInit(&decoder, ZYDIS_MACHINE_MODE_LONG_64, ZYDIS_STACK_WIDTH_64))) [[unlikely]]
     {
@@ -128,19 +135,22 @@ static void FindGameSystemFactory()
     ZydisDecodedInstruction instr;
     ZydisDecodedOperand     operands[ZYDIS_MAX_OPERAND_COUNT];
 
-    std::uintptr_t ip = function_address;
+    std::uintptr_t ip = range->start;
 
     std::uintptr_t pending_addr = 0;
     ZydisRegister  pending_reg  = ZYDIS_REGISTER_NONE;
 
-    for (auto i = 0; i < 50; ++i)
+    while (ip < range->end)
     {
         if (!ZYAN_SUCCESS(ZydisDecoderDecodeFull(&decoder,
             reinterpret_cast<const void*>(ip),
-            ZYDIS_MAX_INSTRUCTION_LENGTH,
+            range->end - ip,
             &instr,
             operands))) [[unlikely]]
-            break;
+        {
+            ip++;
+            continue;
+        }
 
         // mov reg, cs:CBaseGameSystemFactory::sm_pFirst
         if (instr.mnemonic == ZYDIS_MNEMONIC_MOV && (instr.attributes & ZYDIS_ATTRIB_IS_RELATIVE) && instr.operand_count_visible == 2)
@@ -199,7 +209,7 @@ static void FindGameSystemFactory()
         ip += instr.length;
     }
 
-    FatalError("Found IGameSystem::InitAllSystems but failed to find instruction sequence within limit(50 times)");
+    FatalError("Found IGameSystem::InitAllSystems but failed to find CBaseGameSystemFactory::sm_ppFirst in function body");
 }
 
 bool address::Initialize()
