@@ -630,15 +630,6 @@
         "vtable": "CSource2GameClients"
       }
     },
-    "CSource2GameClients::Command": {
-      "library": "server",
-      "refs": {
-        "strings": [
-          "Unknown command: %s\n"
-        ],
-        "vtable": "CSource2GameClients"
-      }
-    },
     "CSource2GameClients::FullyConnected": {
       "library": "server",
       "refs": {
@@ -658,21 +649,6 @@
           "SV:  ClientPutInServer -- player %d transitioned via saverestore file [%s]\n"
         ],
         "vtable": "CSource2GameClients"
-      }
-    },
-    "CSource2Server::GameFrame": {
-      "library": "server",
-      "refs": {
-        "strings": [
-          "CSource2Server::GameFrame"
-        ],
-        "cvars": [
-          "sv_early_network_message_processing"
-        ],
-        "vtables": [
-          "CDontUseThisGameSystem"
-        ],
-        "vtable": "CSource2Server"
       }
     },
     "CTriggerGravity::GravityTouch": {
