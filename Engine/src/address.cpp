@@ -31,6 +31,9 @@
 #include <Zydis.h>
 
 #include <array>
+#include <cctype>
+#include <cstring>
+#include <ranges>
 
 class CBaseGameSystemFactory;
 
@@ -47,6 +50,76 @@ GameData*   g_pGameData;
 extern void InitializeInterfaces();
 
 CBaseGameSystemFactory** CBaseGameSystemFactory::sm_ppFirst = nullptr;
+
+static bool IsAddressInServerModule(std::uintptr_t address, std::size_t size = 1)
+{
+    if (address == 0 || size == 0)
+        return false;
+
+    const auto base = modules::server->Base();
+    const auto end  = base + modules::server->Size();
+
+    return address >= base && address + size > address && address + size <= end;
+}
+
+static bool IsReasonableGameSystemName(const char* name)
+{
+    if (name == nullptr)
+        return false;
+
+    const auto address = reinterpret_cast<std::uintptr_t>(name);
+    if (!IsAddressInServerModule(address))
+        return false;
+
+    for (std::size_t i = 0; i < 96; ++i)
+    {
+        const auto ch = static_cast<unsigned char>(name[i]);
+        if (ch == '\0')
+            return i > 0;
+
+        if (!(std::isalnum(ch) || ch == '_' || ch == ':' || ch == '<' || ch == '>' || ch == '-'))
+            return false;
+    }
+
+    return false;
+}
+
+static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first)
+{
+    if (first == nullptr)
+        return false;
+
+    constexpr std::array known_names = {
+        "GameRulesGameSystem",
+        "SoundOpGameSystem",
+        "SpawnGroupManagerGameSystem",
+        "DedicatedServerWorkshopManager",
+    };
+
+    std::size_t valid_nodes = 0;
+    bool        found_known = false;
+
+    for (auto* current = first; current != nullptr && valid_nodes < 256; current = current->m_pNext)
+    {
+        const auto current_address = reinterpret_cast<std::uintptr_t>(current);
+        if (!IsAddressInServerModule(current_address, sizeof(CBaseGameSystemFactory)))
+            return false;
+
+        if (!IsReasonableGameSystemName(current->m_pszName))
+            return false;
+
+        if (current->m_pInstance == nullptr || !CAddress(current->m_pInstance).IsValid())
+            return false;
+
+        found_known |= std::ranges::any_of(known_names, [&](const char* name) {
+            return std::strcmp(current->m_pszName, name) == 0;
+        });
+
+        ++valid_nodes;
+    }
+
+    return valid_nodes >= 4 && found_known;
+}
 
 static void FindCEntityIdentity_SetEntityName()
 {
@@ -182,9 +255,9 @@ static void FindGameSystemFactory()
                     continue;
                 }
 
-                if (!modules::server->IsPointerDerivedFrom(first->m_pInstance, "IGameSystem"))
+                if (!ValidateGameSystemFactoryList(first))
                 {
-                    WARN("Candidate at server+0x%llx rejected: m_pInstance is not derived from IGameSystem", pending_addr - modules::server->Base());
+                    WARN("Candidate at server+0x%llx rejected: factory list validation failed", pending_addr - modules::server->Base());
                     pending_reg  = ZYDIS_REGISTER_NONE;
                     pending_addr = 0;
                     continue;

@@ -260,6 +260,11 @@ public:
         return _base_address;
     }
 
+    [[nodiscard]] std::size_t Size() const
+    {
+        return _size;
+    }
+
     [[nodiscard]] std::string_view ModuleName() const
     {
         return _module_name;
