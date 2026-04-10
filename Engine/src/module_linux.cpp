@@ -42,6 +42,49 @@
 
 static std::vector<std::pair<std::string, dl_phdr_info>> module_list{};
 
+static std::string_view GetPathBasename(std::string_view path)
+{
+    const auto index = path.find_last_of('/');
+    return index == std::string_view::npos ? path : path.substr(index + 1);
+}
+
+static std::string_view StripSharedObjectSuffix(std::string_view name)
+{
+    if (name.ends_with(".so"))
+        return name.substr(0, name.size() - 3);
+    return name;
+}
+
+static bool IsMetamodProxyModule(std::string_view path)
+{
+    return path.find("/addons/metamod/") != std::string_view::npos;
+}
+
+static bool IsGameBinModule(std::string_view path)
+{
+    return path.find("/csgo/bin/linuxsteamrt64/") != std::string_view::npos;
+}
+
+static bool MatchesRequestedModule(std::string_view requested, std::string_view loaded)
+{
+    if (loaded.find(requested) != std::string_view::npos)
+        return true;
+
+    const auto requested_base = StripSharedObjectSuffix(GetPathBasename(requested));
+    const auto loaded_base    = StripSharedObjectSuffix(GetPathBasename(loaded));
+
+    if (requested_base.empty() || loaded_base.empty() || requested_base != loaded_base)
+        return false;
+
+    // DatHost loads the real server module from an absolute /csgo/bin path, while
+    // Metamod also loads a proxy libserver.so from addons/metamod/bin. Prefer the
+    // real game module so gamedata scans the actual server binary.
+    if (requested_base == "libserver")
+        return IsGameBinModule(loaded) && !IsMetamodProxyModule(loaded);
+
+    return true;
+}
+
 void CModule::GetModuleInfo(std::string_view mod)
 {
     if (module_list.empty()) [[unlikely]]
@@ -75,11 +118,12 @@ void CModule::GetModuleInfo(std::string_view mod)
 
     const auto it = std::ranges::find_if(module_list,
                                          [&](const auto& i) {
-                                             return i.first.find(mod) != std::string::npos;
+                                             return MatchesRequestedModule(mod, i.first);
                                          });
 
     if (it == module_list.end())
     {
+        FERROR("Failed to match requested module \"%.*s\"", static_cast<int>(mod.size()), mod.data());
         return;
     }
 
