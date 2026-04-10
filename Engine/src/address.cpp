@@ -151,6 +151,24 @@ static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first, const c
     return true;
 }
 
+static CBaseGameSystemFactory** ResolveGameSystemFactoryHead(std::uintptr_t candidate_addr, const char** reject_reason = nullptr)
+{
+    const char* direct_reason = nullptr;
+    auto        direct_head   = reinterpret_cast<CBaseGameSystemFactory**>(candidate_addr);
+    if (ValidateGameSystemFactoryList(*direct_head, &direct_reason))
+        return direct_head;
+
+    const char* indirect_reason = nullptr;
+    auto        indirect_slot   = reinterpret_cast<CBaseGameSystemFactory***>(candidate_addr);
+    if (CAddress(indirect_slot).IsValid() && CAddress(*indirect_slot).IsValid() && ValidateGameSystemFactoryList(**indirect_slot, &indirect_reason))
+        return *indirect_slot;
+
+    if (reject_reason != nullptr)
+        *reject_reason = indirect_reason ? indirect_reason : direct_reason;
+
+    return nullptr;
+}
+
 static void FindCEntityIdentity_SetEntityName()
 {
     const auto set_entity_name_functions = modules::server->FindAllFunctionsFromStringRefs({"CEntityIdentity::SetEntityName called, but there is no entity name string table pointer!\n"});
@@ -275,20 +293,12 @@ static void FindGameSystemFactory()
 
             if (op1.type == ZYDIS_OPERAND_TYPE_REGISTER && op1.reg.value == pending_reg && op2.type == ZYDIS_OPERAND_TYPE_REGISTER && op2.reg.value == pending_reg)
             {
-                auto temp  = reinterpret_cast<CBaseGameSystemFactory**>(pending_addr);
-                auto first = *temp;
-                if (first == nullptr)
+                auto temp = ResolveGameSystemFactoryHead(pending_addr);
+                if (temp == nullptr)
                 {
-                    WARN("Candidate at server+0x%llx rejected: factory pointer is null", pending_addr - modules::server->Base());
-                    pending_reg  = ZYDIS_REGISTER_NONE;
-                    pending_addr = 0;
-                    continue;
-                }
-
-                const char* reject_reason = nullptr;
-                if (!ValidateGameSystemFactoryList(first, &reject_reason))
-                {
-                    WARN("Candidate at server+0x%llx rejected: %s", pending_addr - modules::server->Base(), reject_reason ? reject_reason : "factory list validation failed");
+                    const char* reject_reason = nullptr;
+                    ResolveGameSystemFactoryHead(pending_addr, &reject_reason);
+                    WARN("Candidate at server+0x%llx rejected: %s", pending_addr - modules::server->Base(), reject_reason ? reject_reason : "factory head resolution failed");
                     pending_reg  = ZYDIS_REGISTER_NONE;
                     pending_addr = 0;
                     continue;
