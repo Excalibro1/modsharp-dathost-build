@@ -266,7 +266,7 @@ BeginMemberHookScope(CSource2GameClients)
 
     // 为什么用这个Hook?
     // 因为里面判断了是否是已经注册ConCommand且符合FCVAR_CHEAT | FCVAR_CLIENT_CAN_EXECUTE等判断
-    DeclareMemberDetourHook(Command, void, (IServerGameClient * pServerGameClient, PlayerSlot_t slot, const CCommand* pCommand))
+    DeclareVirtualHook(Command, void, (IServerGameClient * pServerGameClient, PlayerSlot_t slot, const CCommand* pCommand))
     {
         AssertPtr(s_pCommandContextClient);
         AssertBool((s_pCommandContextClient->GetSlot() == slot));
@@ -524,7 +524,7 @@ void InstallClientHooks()
     InstallMemberDetourAutoSig(CSource2GameClients, PutInServer);
     InstallMemberDetourAutoSig(CSource2GameClients, Active);
     InstallVirtualHookAutoWithVTableAuto(CSource2GameClients, SettingsChanged, server);
-    InstallMemberDetourAutoSig(CSource2GameClients, Command);
+    InstallVirtualHookAutoWithVTableAuto(CSource2GameClients, Command, server);
     InstallMemberDetourAutoSig(CSource2GameClients, FullyConnected);
 
     InstallMemberDetourAutoSig(CServerSideClient, ExecuteStringCommand);

@@ -50,7 +50,7 @@ static CConVarBaseData* ms_fix_spawngroups_leak = nullptr;
 
 BeginMemberHookScope(CSource2Server)
 {
-    DeclareMemberDetourHook(GameFrame, void, (CSource2Server * pServer, bool bSimulating, bool bFirstTick, bool bLastTick))
+    DeclareVirtualHook(GameFrame, void, (CSource2Server * pServer, bool bSimulating, bool bFirstTick, bool bLastTick))
     {
 #ifdef SERVER_HOOK_ASSERT
         LOG("%10s: 0x%p\n", "this", pServer);
@@ -307,7 +307,7 @@ static void PatchEnableVScript()
 
 void InstallServerHooks()
 {
-    InstallMemberDetourAutoSig(CSource2Server, GameFrame);
+    InstallVirtualHookAutoWithVTableAuto(CSource2Server, GameFrame, server);
     InstallVirtualHookAutoWithVTableAuto(CSource2Server, GameServerSteamAPIActivated, server);
     InstallVirtualHookAutoWithVTableAuto(CSource2Server, GameServerSteamAPIDeactivated, server);
 
