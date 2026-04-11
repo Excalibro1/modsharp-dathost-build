@@ -93,30 +93,19 @@ static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first, const c
         "DedicatedServerWorkshopManager",
     };
 
-    std::size_t valid_nodes = 0;
-    bool        found_known = false;
+    std::size_t valid_nodes     = 0;
+    std::size_t malformed_nodes = 0;
+    std::size_t traversed_nodes = 0;
+    bool        found_known     = false;
+    auto*       current         = first;
 
-    for (auto* current = first; current != nullptr && valid_nodes < 256; current = current->m_pNext)
+    for (; current != nullptr && traversed_nodes < 256; current = current->m_pNext, ++traversed_nodes)
     {
         const auto current_address = reinterpret_cast<std::uintptr_t>(current);
         if (!IsReasonableAddress(current_address))
         {
             if (reject_reason != nullptr)
                 *reject_reason = "factory node pointer is invalid";
-            return false;
-        }
-
-        if (!IsReasonableGameSystemName(current->m_pszName))
-        {
-            if (reject_reason != nullptr)
-                *reject_reason = "factory name pointer/string is invalid";
-            return false;
-        }
-
-        if (current->m_pInstance == nullptr || !CAddress(current->m_pInstance).IsValid())
-        {
-            if (reject_reason != nullptr)
-                *reject_reason = "factory instance pointer is invalid";
             return false;
         }
 
@@ -127,11 +116,27 @@ static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first, const c
             return false;
         }
 
+        const bool name_valid     = IsReasonableGameSystemName(current->m_pszName);
+        const bool instance_valid = current->m_pInstance != nullptr && CAddress(current->m_pInstance).IsValid();
+
+        if (!name_valid || !instance_valid)
+        {
+            ++malformed_nodes;
+            continue;
+        }
+
         found_known |= std::ranges::any_of(known_names, [&](const char* name) {
             return std::strcmp(current->m_pszName, name) == 0;
         });
 
         ++valid_nodes;
+    }
+
+    if (current != nullptr)
+    {
+        if (reject_reason != nullptr)
+            *reject_reason = "factory list did not terminate";
+        return false;
     }
 
     if (valid_nodes < 4)
@@ -145,6 +150,13 @@ static bool ValidateGameSystemFactoryList(CBaseGameSystemFactory* first, const c
     {
         if (reject_reason != nullptr)
             *reject_reason = "factory list did not contain expected names";
+        return false;
+    }
+
+    if (malformed_nodes > 16 && malformed_nodes > valid_nodes)
+    {
+        if (reject_reason != nullptr)
+            *reject_reason = "factory list contained too many malformed nodes";
         return false;
     }
 
