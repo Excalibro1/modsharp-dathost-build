@@ -18,8 +18,23 @@
  */
 
 #include "cstrike/interface/IGameSystem.h"
+#include "module.h"
 
 #include <cstring>
+
+static bool IsComparableGameSystemName(const char* name)
+{
+    if (name == nullptr || !CAddress(name).IsValid() || name[0] == '\0')
+        return false;
+
+    for (std::size_t i = 0; i < 256; ++i)
+    {
+        if (name[i] == '\0')
+            return true;
+    }
+
+    return false;
+}
 
 CBaseGameSystemFactory* GetGameSystemFactory()
 {
@@ -32,7 +47,7 @@ void* FindGameSystemByName(const char* name)
 
     while (list)
     {
-        if (strcmp(list->m_pszName, name) == 0)
+        if (IsComparableGameSystemName(list->m_pszName) && strcmp(list->m_pszName, name) == 0)
         {
             return list->m_pInstance;
         }

@@ -64,14 +64,14 @@ static bool IsReasonableGameSystemName(const char* name)
     if (!IsReasonableAddress(reinterpret_cast<std::uintptr_t>(name)))
         return false;
 
-    for (std::size_t i = 0; i < 96; ++i)
+    if (name[0] == '\0')
+        return false;
+
+    for (std::size_t i = 0; i < 256; ++i)
     {
         const auto ch = static_cast<unsigned char>(name[i]);
         if (ch == '\0')
-            return i > 0;
-
-        if (!(std::isalnum(ch) || ch == '_' || ch == ':' || ch == '<' || ch == '>' || ch == '-'))
-            return false;
+            return true;
     }
 
     return false;
