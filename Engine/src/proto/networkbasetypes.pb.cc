@@ -1084,8 +1084,8 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_networkb
   return &descriptor_table_networkbasetypes_2eproto;
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_networkbasetypes_2eproto(&descriptor_table_networkbasetypes_2eproto);
+// Disabled eager descriptor registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_networkbasetypes_2eproto(&descriptor_table_networkbasetypes_2eproto);
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SignonState_t_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_networkbasetypes_2eproto);
   return file_level_enum_descriptors_networkbasetypes_2eproto[0];

@@ -184,8 +184,8 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_steammes
   return &descriptor_table_steammessages_2eproto;
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_steammessages_2eproto(&descriptor_table_steammessages_2eproto);
+// Disabled eager descriptor registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_steammessages_2eproto(&descriptor_table_steammessages_2eproto);
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* GCProtoBufMsgSrc_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_steammessages_2eproto);
   return file_level_enum_descriptors_steammessages_2eproto[0];

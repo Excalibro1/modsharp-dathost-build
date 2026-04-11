@@ -1711,8 +1711,8 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_gcsdk_5f
   return &descriptor_table_gcsdk_5fgcmessages_2eproto;
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_gcsdk_5fgcmessages_2eproto(&descriptor_table_gcsdk_5fgcmessages_2eproto);
+// Disabled eager descriptor registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_gcsdk_5fgcmessages_2eproto(&descriptor_table_gcsdk_5fgcmessages_2eproto);
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* GCClientLauncherType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_gcsdk_5fgcmessages_2eproto);
   return file_level_enum_descriptors_gcsdk_5fgcmessages_2eproto[0];

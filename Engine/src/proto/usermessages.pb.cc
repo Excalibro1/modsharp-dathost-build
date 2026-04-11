@@ -3991,8 +3991,8 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_usermess
   return &descriptor_table_usermessages_2eproto;
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_usermessages_2eproto(&descriptor_table_usermessages_2eproto);
+// Disabled eager descriptor registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_usermessages_2eproto(&descriptor_table_usermessages_2eproto);
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EBaseUserMessages_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_usermessages_2eproto);
   return file_level_enum_descriptors_usermessages_2eproto[0];
