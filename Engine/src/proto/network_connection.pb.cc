@@ -435,16 +435,17 @@ bool ENetworkDisconnectionReason_IsValid(int value) {
 }
 
 const std::string network_connection_token_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  network_connection_token(kNetworkConnectionTokenFieldNumber, network_connection_token_default, nullptr);
+// Disabled eager native extension registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   network_connection_token(kNetworkConnectionTokenFieldNumber, network_connection_token_default, nullptr);
 const std::string network_connection_detail_token_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  network_connection_detail_token(kNetworkConnectionDetailTokenFieldNumber, network_connection_detail_token_default, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
-  allowed_from_client(kAllowedFromClientFieldNumber, true, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   network_connection_detail_token(kNetworkConnectionDetailTokenFieldNumber, network_connection_detail_token_default, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
+//   allowed_from_client(kAllowedFromClientFieldNumber, true, nullptr);
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN

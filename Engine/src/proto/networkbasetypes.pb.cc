@@ -10086,9 +10086,10 @@ void CNETMsg_DebugOverlay::InternalSwap(CNETMsg_DebugOverlay* other) {
       &descriptor_table_networkbasetypes_2eproto_getter, &descriptor_table_networkbasetypes_2eproto_once,
       file_level_metadata_networkbasetypes_2eproto[26]);
 }
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::MessageOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< int32_t >, 5, false>
-  maximum_size_bytes(kMaximumSizeBytesFieldNumber, 0, nullptr);
+// Disabled eager native extension registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::MessageOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< int32_t >, 5, false>
+//   maximum_size_bytes(kMaximumSizeBytesFieldNumber, 0, nullptr);
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
